@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10118.6" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="CDDocument" representedClassName=".CDDocument" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="displayDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="releaseVersion" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="updateSizeRaw" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="framework" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDFramework" inverseName="documents" inverseEntity="CDFramework" syncable="YES"/>
+        <relationship name="subTopic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTopic" inverseName="subTopicOfDocuments" inverseEntity="CDTopic" syncable="YES"/>
+        <relationship name="topic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTopic" inverseName="topicOfDocuments" inverseEntity="CDTopic" syncable="YES"/>
+        <relationship name="type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDResourceType" inverseName="documents" inverseEntity="CDResourceType" syncable="YES"/>
+    </entity>
+    <entity name="CDFramework" representedClassName=".CDFramework" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDFramework" inverseName="parent" inverseEntity="CDFramework" syncable="YES"/>
+        <relationship name="documents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDDocument" inverseName="framework" inverseEntity="CDDocument" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDFramework" inverseName="children" inverseEntity="CDFramework" syncable="YES"/>
+    </entity>
+    <entity name="CDResourceType" representedClassName=".CDResourceType" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="documents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDDocument" inverseName="type" inverseEntity="CDDocument" syncable="YES"/>
+    </entity>
+    <entity name="CDTopic" representedClassName=".CDTopic" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTopic" inverseName="parent" inverseEntity="CDTopic" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTopic" inverseName="children" inverseEntity="CDTopic" syncable="YES"/>
+        <relationship name="subTopicOfDocuments" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDocument" inverseName="subTopic" inverseEntity="CDDocument" syncable="YES"/>
+        <relationship name="topicOfDocuments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDDocument" inverseName="topic" inverseEntity="CDDocument" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CDDocument" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="CDFramework" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="CDResourceType" positionX="-18" positionY="27" width="128" height="120"/>
+        <element name="CDTopic" positionX="-36" positionY="9" width="128" height="150"/>
+    </elements>
+</model>
