@@ -9,71 +9,55 @@
 import Cocoa
 
 class DocumentListViewController: NSViewController {
+    
+    private typealias DocumentsCellFactory = TableViewCellFactory<DocumentTableCellView, CDDocument>
+    
+    private let dataSource = DataSource<TableViewAdapter<DocumentsCellFactory>>()
+    private var tableViewAdapter : TableViewAdapter<DocumentsCellFactory>!
+    private var cellFactory : DocumentsCellFactory!
 
-    let moc = createMainContext()!
     let fetcher = DocumentFetcher(url: NSURL(string: "https://developer.apple.com/library/mac/navigation/library.json")!)
-    
-    // To retain the filter string when reloading the data
-    var filterString : String = ""
-    
-    var documents : [CDDocument] = [] {
-        didSet { filteredDocuments = filterdDocumentsUsingString(filterString) }
-    }
-    
-    var filteredDocuments : [CDDocument] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
     
     @IBOutlet weak var tableView: NSTableView!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        reloadDocuments()
-    }
-    
-    private func reloadDocuments() {
-        documents = CDDocument.fetchInContext(moc).sort({ $0.date > $1.date })
-    }
-    
-    private func filterdDocumentsUsingString(string: String) -> [CDDocument] {
-        if string == "" {
-            return documents
-        } else {
-            return documents.filter {
-                $0.name.lowercaseString.containsString(filterString)
-            }
+        super.viewDidLoad()        
+        
+        cellFactory = DocumentsCellFactory() { (cell, document) -> () in
+//            cell.delegate = self.tableViewAdapter
+            cell.document = document
         }
+        
+        tableViewAdapter = TableViewAdapter(dataManager: dataSource, cellFactory: cellFactory, tableView: tableView)
+        
+        tableView.setDataSource(tableViewAdapter.bridgedDataSource)
+        tableView.setDelegate(self)
+        
+        dataSource.delegate = tableViewAdapter
+        
+        dataSource.reloadDocuments()
     }
 
 }
 
+// MARK: - NSTableViewDelegate
+extension DocumentListViewController : NSTableViewDelegate {
+    
+    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let tableColumn = tableColumn where row < dataSource.items.count else { return nil }
+        return tableViewAdapter.bridgedDelegate.tableView?(tableView, viewForTableColumn: tableColumn, row: row)
+    }
+}
+
+// MARK: - NSSearchFieldDelegate
 extension DocumentListViewController : NSSearchFieldDelegate {
     
     override func controlTextDidChange(obj: NSNotification) {
         guard let textField = obj.object as? NSTextField else { return }
-        
-        filterString = textField.stringValue.lowercaseString
-        filteredDocuments = filterdDocumentsUsingString(filterString)
+        dataSource.filterWithString(textField.stringValue.lowercaseString)
     }
 }
 
-extension DocumentListViewController : NSTableViewDataSource {
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return filteredDocuments.count
-    }
-}
-
-extension DocumentListViewController : NSTableViewDelegate {
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let tableColumn = tableColumn else { return nil }
-        guard filteredDocuments.indices.contains(row) else { return nil }
-                
-        let cell = tableView.makeViewWithIdentifier(tableColumn.identifier, owner: self) as! DocumentTableCellView
-        
-        cell.document = filteredDocuments[row]
-        
-        return cell
-    }
+extension CDDocument : ReuseIdentifierCreatable {
+    var cellReuseIdentifier : String { return "DocumentCell" }
 }

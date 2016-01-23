@@ -680,7 +680,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="44" viewBased="YES" id="jfS-ff-98k">
-                                            <rect key="frame" x="0.0" y="0.0" width="480" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="480" height="0.0"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -700,7 +700,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="3Xj-03-Rob" customClass="DocumentTableCellView" customModule="SampleCodeStalker" customModuleProvider="target">
+                                                        <tableCellView identifier="DocumentCell" id="3Xj-03-Rob" customClass="DocumentTableCellView" customModule="SampleCodeStalker" customModuleProvider="target">
                                                             <rect key="frame" x="1" y="1" width="477" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
@@ -772,10 +772,6 @@
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
-                                            <connections>
-                                                <outlet property="dataSource" destination="XfG-lQ-9wD" id="8yM-24-2FP"/>
-                                                <outlet property="delegate" destination="XfG-lQ-9wD" id="dxX-tH-vHy"/>
-                                            </connections>
                                         </tableView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

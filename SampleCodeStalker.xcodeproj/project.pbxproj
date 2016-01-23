@@ -37,6 +37,9 @@
 		44C344D51C53BF070068AD9D /* SampleCodeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44C344D31C53BF070068AD9D /* SampleCodeModel.xcdatamodeld */; };
 		44C344DA1C53CBF20068AD9D /* DocumentTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */; };
 		44C344DE1C53FD3C0068AD9D /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C344DD1C53FD3C0068AD9D /* MainWindow.swift */; };
+		44EE8B1A1C5408A1000FC76A /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE8B191C5408A1000FC76A /* DataSource.swift */; };
+		44EE8B1C1C5409AA000FC76A /* TableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */; };
+		44EE8B1E1C5409E6000FC76A /* TableViewCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,9 @@
 		44C344D41C53BF070068AD9D /* SampleCodeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SampleCodeModel.xcdatamodel; sourceTree = "<group>"; };
 		44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTableCellView.swift; sourceTree = "<group>"; };
 		44C344DD1C53FD3C0068AD9D /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		44EE8B191C5408A1000FC76A /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewAdapter.swift; sourceTree = "<group>"; };
+		44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,9 +112,12 @@
 			isa = PBXGroup;
 			children = (
 				44C344881C5362CB0068AD9D /* AppDelegate.swift */,
-				44C3448A1C5362CB0068AD9D /* DocumentListViewController.swift */,
 				44C3448E1C5362CB0068AD9D /* Main.storyboard */,
 				44C344DD1C53FD3C0068AD9D /* MainWindow.swift */,
+				44C3448A1C5362CB0068AD9D /* DocumentListViewController.swift */,
+				44EE8B191C5408A1000FC76A /* DataSource.swift */,
+				44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */,
+				44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */,
 				44C344C71C537E8E0068AD9D /* DocumentFetcher.swift */,
 				44C344C91C53833E0068AD9D /* DocumentParser.swift */,
 				44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */,
@@ -244,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44EE8B1A1C5408A1000FC76A /* DataSource.swift in Sources */,
 				44C344B31C5363220068AD9D /* NSManagedObjectContext+Observers.swift in Sources */,
 				44C344A81C5363220068AD9D /* Collection+CoreDataExtensions.swift in Sources */,
 				44C344B01C5363220068AD9D /* NSFetchRequest+Extensions.swift in Sources */,
@@ -255,6 +265,7 @@
 				44C344C21C536CCB0068AD9D /* CDFramework.swift in Sources */,
 				44C344C61C536D860068AD9D /* CDResourceType.swift in Sources */,
 				44C344CA1C53833E0068AD9D /* DocumentParser.swift in Sources */,
+				44EE8B1E1C5409E6000FC76A /* TableViewCellFactory.swift in Sources */,
 				44C344AD1C5363220068AD9D /* Migration.swift in Sources */,
 				44C3448B1C5362CB0068AD9D /* DocumentListViewController.swift in Sources */,
 				44C344B61C5363220068AD9D /* Utilities.swift in Sources */,
@@ -266,6 +277,7 @@
 				44C344DA1C53CBF20068AD9D /* DocumentTableCellView.swift in Sources */,
 				44C344DE1C53FD3C0068AD9D /* MainWindow.swift in Sources */,
 				44C344CF1C5397AA0068AD9D /* CoreDataStack.swift in Sources */,
+				44EE8B1C1C5409AA000FC76A /* TableViewAdapter.swift in Sources */,
 				44C344CD1C5395ED0068AD9D /* Document.swift in Sources */,
 				44C344AF1C5363220068AD9D /* ModelVersionType.swift in Sources */,
 				44C344BE1C536A130068AD9D /* CDDocument.swift in Sources */,
