@@ -20,10 +20,10 @@ struct DocumentFetcher {
     func fetch(completionHandler: (json: [String:AnyObject])->Void) {
         
         let request = NSMutableURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
-        let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: configuration)
         
-        let task = session.dataTaskWithRequest(request) { data, response, error in
+        session.dataTaskWithRequest(request) { data, response, error in
             guard let data = data, response = response as? NSHTTPURLResponse
                 where error == nil && response.statusCode == 200 else { return }
             
@@ -33,9 +33,7 @@ struct DocumentFetcher {
                 completionHandler(json: jsonDict)
                 
             }
-        }
-        
-        task.resume()
+        }.resume()
         
     }
     
