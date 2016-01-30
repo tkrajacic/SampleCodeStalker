@@ -25,11 +25,11 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
     
     private var contextSavedToken : NSObjectProtocol!
     
-    var moc = createMainContext()! {
-        didSet {
-            contextSavedToken = moc.addContextDidSaveNotificationObserver { [weak self] note in
-                self?.delegate?.dataSourceDidChangeContent()
-            }
+    var moc = createMainContext()!
+    
+    init() {
+        contextSavedToken = moc.addContextDidSaveNotificationObserver { [weak self] note in
+            self?.reloadDocuments()
         }
     }
     
