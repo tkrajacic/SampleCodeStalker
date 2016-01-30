@@ -21,7 +21,7 @@ struct DocumentParser {
         self.moc = managedObjectContext
     }
     
-    func parse(json: [String:AnyObject], completionHandler: ()->Void) {
+    func parse(json: [String:AnyObject], completionHandler: (()->Void)? = nil) {
         
         // This should have: topics (Resource Types, Topics, Frameworks), updateSize, columns, documents
         guard let
@@ -40,7 +40,7 @@ struct DocumentParser {
         parseTopics(topics)
         parseDocuments(documents, columns: columns)
         
-        mainThread { completionHandler() }
+        mainThread { completionHandler?() }
 
     }
     

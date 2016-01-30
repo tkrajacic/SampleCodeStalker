@@ -38,9 +38,7 @@ class DocumentListViewController: NSViewController {
         dataSource.reloadDocuments()
         
         fetcher.fetch { json in
-            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json, completionHandler: { 
-                self.dataSource.reloadDocuments()
-            })
+            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json)
         }
     }
 

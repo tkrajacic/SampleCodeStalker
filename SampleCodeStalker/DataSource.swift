@@ -23,8 +23,20 @@ protocol DataSourceType {
 
 final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: ManagedObject, Delegate.Item: ManagedObjectType, Delegate.Item: StringFilterable> : DataSourceType {
     
-    let moc = createMainContext()!
+    private var contextSavedToken : NSObjectProtocol!
     
+    var moc = createMainContext()! {
+        didSet {
+            contextSavedToken = moc.addContextDidSaveNotificationObserver { [weak self] note in
+                self?.delegate?.dataSourceDidChangeContent()
+            }
+        }
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(contextSavedToken)
+    }
+        
     // To keep the filter string when reloading the data
     var filterString: String = ""
 
