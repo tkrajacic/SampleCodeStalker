@@ -28,7 +28,7 @@ class DocumentTableCellView: NSTableCellView {
         guard let document = document else { return }
             nameTextField.stringValue = document.name
             dateTextField.stringValue = DocumentTableCellView.dateFormatter.stringFromDate(document.date)
-            topicTextField.stringValue = "\(document.topic?.name ?? "") / \(document.subTopic?.name ?? "")"
+            topicTextField.stringValue = "\(document.topic?.name ?? "")" + (document.subTopic.flatMap({" / \($0.name)"}) ?? "")
             frameworkTextField.stringValue = document.framework?.name ?? ""
             updateSizeTextField.stringValue = "\(document.updateSize.rawValue)"
         }
