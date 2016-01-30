@@ -58,7 +58,7 @@ extension CDDocument : ManagedObjectType {
 
 // MARK: - Creation
 extension CDDocument {
-    public static func insertIntoContext(
+    public static func updateOrInsertIntoContext(
         moc: NSManagedObjectContext,
         identifier: String,
         name: String,
@@ -74,7 +74,7 @@ extension CDDocument {
         framework: CDFramework?
         ) -> CDDocument {
         
-        let document: CDDocument = moc.insertObject()
+        let document = CDDocument.findOrCreateInContext(moc, matchingPredicate: NSPredicate(format: "id == '\(identifier)'")) {_ in}
         document.id = identifier
         document.name = name
         document.type = type

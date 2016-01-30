@@ -40,8 +40,15 @@ extension CDFramework : ManagedObjectType {
 
 // MARK: - Creation
 extension CDFramework {
-    public static func insertIntoContext(moc: NSManagedObjectContext, identifier: Int16, name: String, key: Int16, parent: CDFramework? = nil) -> CDFramework {
-        let framework: CDFramework = moc.insertObject()
+    public static func updateOrInsertIntoContext(
+        moc: NSManagedObjectContext,
+        identifier: Int16,
+        name: String,
+        key: Int16,
+        parent: CDFramework? = nil
+        ) -> CDFramework {
+        
+        let framework = CDFramework.findOrCreateInContext(moc, matchingPredicate: NSPredicate(format: "id == \(identifier)")) { _ in }
         framework.id = identifier
         framework.name = name
         framework.key = key

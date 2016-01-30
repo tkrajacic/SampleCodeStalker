@@ -39,8 +39,15 @@ extension CDResourceType : ManagedObjectType {
 
 // MARK: - Creation
 extension CDResourceType {
-    public static func insertIntoContext(moc: NSManagedObjectContext, identifier: String, name: String, key: Int16, sortOrder: Int16) -> CDResourceType {
-        let resourceType: CDResourceType = moc.insertObject()
+    public static func updateOrInsertIntoContext(
+        moc: NSManagedObjectContext,
+        identifier: String,
+        name: String,
+        key: Int16,
+        sortOrder: Int16
+        ) -> CDResourceType {
+        
+        let resourceType = CDResourceType.findOrCreateInContext(moc, matchingPredicate: NSPredicate(format: "id == '\(identifier)'")) { _ in }
         resourceType.id = identifier
         resourceType.name = name
         resourceType.key = key

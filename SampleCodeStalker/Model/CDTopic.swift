@@ -41,8 +41,15 @@ extension CDTopic : ManagedObjectType {
 
 // MARK: - Creation
 extension CDTopic {
-    public static func insertIntoContext(moc: NSManagedObjectContext, identifier: Int16, name: String, key: Int16, parent: CDTopic? = nil) -> CDTopic {
-        let topic: CDTopic = moc.insertObject()
+    public static func updateOrInsertIntoContext(
+        moc: NSManagedObjectContext,
+        identifier: Int16,
+        name: String,
+        key: Int16,
+        parent: CDTopic? = nil
+        ) -> CDTopic {
+        
+        let topic = CDTopic.findOrCreateInContext(moc, matchingPredicate: NSPredicate(format: "id == \(identifier)")) { _ in }
         topic.id = identifier
         topic.name = name
         topic.key = key

@@ -44,7 +44,7 @@ struct DocumentParser {
 
     }
     
-    func parseResourceTypes(dict: [[String:AnyObject]]) {
+    private func parseResourceTypes(dict: [[String:AnyObject]]) {
         moc.performChanges {
 
             dict.forEach { resourceType in
@@ -55,8 +55,7 @@ struct DocumentParser {
                     sortOrder   = resourceType["sortOrder"] as? String
                 else { return }
                 
-                
-                CDResourceType.insertIntoContext(self.moc,
+                CDResourceType.updateOrInsertIntoContext(self.moc,
                     identifier: idString,
                     name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
                     key: Int16(key) ?? -1,
@@ -68,7 +67,7 @@ struct DocumentParser {
         }
     }
     
-    func parseFrameworks(dict: [[String:AnyObject]]) {
+    private func parseFrameworks(dict: [[String:AnyObject]]) {
         moc.performChanges {
             
             dict.forEach { framework in
@@ -76,11 +75,9 @@ struct DocumentParser {
                     name        = framework["name"] as? String,
                     id          = framework["id"] as? Int,
                     key         = framework["key"] as? String
-                    else { return }
-                
-                
+                else { return }
 
-                CDFramework.insertIntoContext(self.moc,
+                CDFramework.updateOrInsertIntoContext(self.moc,
                     identifier: Int16(id),
                     name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
                     key: Int16(key) ?? -1
@@ -90,7 +87,7 @@ struct DocumentParser {
         }
     }
     
-    func parseTopics(dict: [[String:AnyObject]]) {
+    private func parseTopics(dict: [[String:AnyObject]]) {
         moc.performChanges {
         
         dict.forEach { topic in
@@ -98,13 +95,13 @@ struct DocumentParser {
                 name        = topic["name"] as? String,
                 id          = topic["id"] as? Int,
                 key         = topic["key"] as? String
-                else { return }
+            else { return }
             
             let parent = (topic["parent"] as? String).flatMap {
                 CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \($0)"))
             }
             
-            CDTopic.insertIntoContext(self.moc,
+            CDTopic.updateOrInsertIntoContext(self.moc,
                 identifier: Int16(id),
                 name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
                 key: Int16(key) ?? -1,
@@ -115,14 +112,13 @@ struct DocumentParser {
         }
     }
     
-    func parseDocuments(array: [[AnyObject]], columns: [String:Int]) {
+    private func parseDocuments(array: [[AnyObject]], columns: [String:Int]) {
         moc.performChanges {
         // for now let's ignore the columns and hardcode the order
         
         // filter out everything that's not sample code
-        guard let sampleCodeType = CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "name == 'Sample Code'"))?.key else {
-            return
-        }
+        guard let sampleCodeType = CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "name == 'Sample Code'"))?.key
+        else { return }
         
             array.forEach { document in
                 guard let
@@ -144,7 +140,7 @@ struct DocumentParser {
                     else { return }
                 
                 
-                CDDocument.insertIntoContext(self.moc,
+                CDDocument.updateOrInsertIntoContext(self.moc,
                     identifier: idString,
                     name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
                     type: CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(type)")),

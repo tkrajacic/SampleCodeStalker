@@ -36,6 +36,12 @@ class DocumentListViewController: NSViewController {
         dataSource.delegate = tableViewAdapter
         
         dataSource.reloadDocuments()
+        
+        fetcher.fetch { json in
+            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json, completionHandler: { 
+                self.dataSource.reloadDocuments()
+            })
+        }
     }
 
 }
