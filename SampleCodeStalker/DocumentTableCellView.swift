@@ -19,17 +19,62 @@ class DocumentTableCellView: NSTableCellView {
 
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var dateTextField: NSTextField!
-    @IBOutlet weak var topicTextField: NSTextField!
-    @IBOutlet weak var frameworkTextField: NSTextField!
+    @IBOutlet weak var tagStackView: NSStackView!
+    @IBOutlet weak var topicTextField: NSTextField! {
+        didSet {
+            topicTextField.wantsLayer = true
+            topicTextField.layer?.backgroundColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.3).CGColor
+            topicTextField.layer?.cornerRadius = 4
+        }
+    }
+    @IBOutlet weak var subTopicTextField: NSTextField! {
+        didSet {
+            subTopicTextField.wantsLayer = true
+            subTopicTextField.layer?.backgroundColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.3).CGColor
+            subTopicTextField.layer?.cornerRadius = 4
+        }
+    }
+    @IBOutlet weak var frameworkTextField: NSTextField! {
+        didSet {
+            frameworkTextField.wantsLayer = true
+            frameworkTextField.layer?.backgroundColor = NSColor(calibratedHue: 0.5, saturation: 0.8, brightness: 0.8, alpha: 0.3).CGColor
+            frameworkTextField.layer?.cornerRadius = 4
+        }
+    }
     @IBOutlet weak var updateSizeTextField: NSTextField!
     
     var document : CDDocument? {
         didSet {
-        guard let document = document else { return }
+            guard let document = document else { return }
+        
             nameTextField.stringValue = document.name
             dateTextField.stringValue = DocumentTableCellView.dateFormatter.stringFromDate(document.date)
-            topicTextField.stringValue = "\(document.topic?.name ?? "")" + (document.subTopic.flatMap({" / \($0.name)"}) ?? "")
-            frameworkTextField.stringValue = document.framework?.name ?? ""
+        
+            if let topicName = document.topic?.name where topicName != "" {
+                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: topicTextField)
+                topicTextField.stringValue = topicName
+            } else {
+                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: topicTextField)
+                topicTextField.stringValue = ""
+            }
+
+            if let subTopicName = document.subTopic?.name where subTopicName != "" {
+                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: subTopicTextField)
+                subTopicTextField.stringValue = subTopicName
+            } else {
+                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: subTopicTextField)
+                subTopicTextField.stringValue = ""
+
+            }
+            
+            if let frameworkName = document.framework?.name where frameworkName != "" {
+                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: frameworkTextField)
+                frameworkTextField.stringValue = frameworkName
+            } else {
+                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: frameworkTextField)
+                frameworkTextField.stringValue = ""
+            }
+
             updateSizeTextField.stringValue = "\(document.updateSize.rawValue)"
         }
         
