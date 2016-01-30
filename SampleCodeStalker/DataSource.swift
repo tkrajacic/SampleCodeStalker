@@ -9,13 +9,13 @@
 import Cocoa
 
 protocol DataSourceDelegate {
-    typealias Item
+    associatedtype Item
     func dataSourceWillChangeContent()
     func dataSourceDidChangeContent()
 }
 
 protocol DataSourceType {
-    typealias DelegateType: DataSourceDelegate
+    associatedtype DelegateType: DataSourceDelegate
     var delegate: DelegateType? { get set }
     var items: [DelegateType.Item] { get }
 }

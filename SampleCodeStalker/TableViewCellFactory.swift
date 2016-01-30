@@ -10,8 +10,8 @@ import Cocoa
 
 
 protocol TableViewCellFactoryType {
-    typealias Item : ReuseIdentifierCreatable
-    typealias Cell : NSView
+    associatedtype Item : ReuseIdentifierCreatable
+    associatedtype Cell : NSView
     func cellForItem(item: Item, forColumn column: NSTableColumn, inTableView tableView: NSTableView) -> Cell
 }
 
