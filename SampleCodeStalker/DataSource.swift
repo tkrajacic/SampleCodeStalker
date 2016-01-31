@@ -67,9 +67,7 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
                 $0.filterString.lowercaseString.containsString(filterString)
             }
         }
-        
     }
-
 }
 
 

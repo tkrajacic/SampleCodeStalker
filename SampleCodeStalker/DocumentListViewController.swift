@@ -48,7 +48,6 @@ class DocumentListViewController: NSViewController {
             }
         }
     }
-
 }
 
 // MARK: - NSTableViewDelegate
@@ -70,14 +69,10 @@ extension DocumentListViewController : NSSearchFieldDelegate {
 }
 
 private extension NSTextField {
+    
     func updateWithCount(count: Int, unfilteredCount: Int) {
         guard unfilteredCount >= count else { return }
-        if count == unfilteredCount {
-            self.stringValue = "\(count) documents"
-        } else {
-            self.stringValue = "\(count) of \(unfilteredCount) documents"
-        }
-        
+        self.stringValue = count == unfilteredCount ? "\(count) documents" : "\(count) of \(unfilteredCount) documents"
     }
 }
 

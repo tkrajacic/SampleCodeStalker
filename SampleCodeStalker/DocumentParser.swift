@@ -155,7 +155,6 @@ struct DocumentParser {
                     framework: CDFramework.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(framework)"))
                 )
             }
-            
         }
     }
 }

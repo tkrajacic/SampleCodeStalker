@@ -80,10 +80,7 @@ class DocumentTableCellView: NSTableCellView {
 
             updateSizeTextField.stringValue = document.updateSize.stringRepresentation
         }
-        
-        
-    }
-    
+    }    
 }
 
 private extension CDDocument.UpdateSize {
