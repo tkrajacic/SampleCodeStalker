@@ -10,6 +10,9 @@ import Cocoa
 
 class DocumentTableCellView: NSTableCellView {
     
+    static let TopicColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.5).CGColor
+    static let FrameworkColor = NSColor(calibratedHue: 0.5, saturation: 0.8, brightness: 0.8, alpha: 0.5).CGColor
+    
     static let dateFormatter : NSDateFormatter = {
         let df = NSDateFormatter()
         df.dateStyle = .MediumStyle
@@ -23,21 +26,21 @@ class DocumentTableCellView: NSTableCellView {
     @IBOutlet weak var topicTextField: NSTextField! {
         didSet {
             topicTextField.wantsLayer = true
-            topicTextField.layer?.backgroundColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.3).CGColor
+            topicTextField.layer?.backgroundColor = DocumentTableCellView.TopicColor
             topicTextField.layer?.cornerRadius = 4
         }
     }
     @IBOutlet weak var subTopicTextField: NSTextField! {
         didSet {
             subTopicTextField.wantsLayer = true
-            subTopicTextField.layer?.backgroundColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.3).CGColor
+            subTopicTextField.layer?.backgroundColor = DocumentTableCellView.TopicColor
             subTopicTextField.layer?.cornerRadius = 4
         }
     }
     @IBOutlet weak var frameworkTextField: NSTextField! {
         didSet {
             frameworkTextField.wantsLayer = true
-            frameworkTextField.layer?.backgroundColor = NSColor(calibratedHue: 0.5, saturation: 0.8, brightness: 0.8, alpha: 0.3).CGColor
+            frameworkTextField.layer?.backgroundColor = DocumentTableCellView.FrameworkColor
             frameworkTextField.layer?.cornerRadius = 4
         }
     }

@@ -730,29 +730,29 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vCZ-BG-hqc">
-                                                                    <rect key="frame" x="8" y="4" width="169" height="16"/>
+                                                                    <rect key="frame" x="8" y="4" width="152" height="14"/>
                                                                     <subviews>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pd8-XC-oea">
-                                                                            <rect key="frame" x="-2" y="0.0" width="36" height="16"/>
+                                                                            <rect key="frame" x="-2" y="0.0" width="33" height="14"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Topic" id="tz0-0Y-ANf">
-                                                                                <font key="font" metaFont="systemSemibold" size="12"/>
-                                                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <font key="font" metaFont="system" size="11"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dd1-tv-Ngw">
-                                                                            <rect key="frame" x="38" y="0.0" width="59" height="16"/>
+                                                                            <rect key="frame" x="35" y="0.0" width="53" height="14"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SubTopic" id="0tb-qp-dVa">
-                                                                                <font key="font" metaFont="systemSemibold" size="12"/>
-                                                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <font key="font" metaFont="system" size="11"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9bt-Ul-mpk">
-                                                                            <rect key="frame" x="101" y="0.0" width="70" height="16"/>
+                                                                            <rect key="frame" x="92" y="0.0" width="62" height="14"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Framework" id="WZZ-IJ-KV9">
-                                                                                <font key="font" metaFont="systemSemibold" size="12"/>
-                                                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <font key="font" metaFont="system" size="11"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
                                                                         </textField>
