@@ -23,9 +23,9 @@ protocol DataSourceType {
 
 final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: ManagedObject, Delegate.Item: ManagedObjectType, Delegate.Item: StringFilterable> : DataSourceType {
     
-    private var contextSavedToken : NSObjectProtocol!
-    
+    private var contextSavedToken: NSObjectProtocol!
     var moc = createMainContext()!
+    var itemCountHandler: ((count: Int, unfilteredCount: Int)->Void)?
     
     init() {
         contextSavedToken = moc.addContextDidSaveNotificationObserver { [weak self] note in
@@ -44,6 +44,7 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
     var items: [Delegate.Item] = [] {
         didSet {
             delegate?.dataSourceDidChangeContent()
+        itemCountHandler?(count: items.count, unfilteredCount: unfilteredItems.count)
         }
     }
     

@@ -19,6 +19,7 @@ class DocumentListViewController: NSViewController {
     let fetcher = DocumentFetcher(url: NSURL(string: "https://developer.apple.com/library/mac/navigation/library.json")!)
     
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var documentCountTextField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()        
@@ -34,7 +35,9 @@ class DocumentListViewController: NSViewController {
         tableView.setDelegate(self)
         
         dataSource.delegate = tableViewAdapter
-        
+        dataSource.itemCountHandler = { count, unfilteredCount in
+            self.documentCountTextField.updateWithCount(count, unfilteredCount: unfilteredCount)
+        }
         dataSource.reloadDocuments()
         
         fetcher.fetch { json in
@@ -59,6 +62,18 @@ extension DocumentListViewController : NSSearchFieldDelegate {
     override func controlTextDidChange(obj: NSNotification) {
         guard let textField = obj.object as? NSTextField else { return }
         dataSource.filterWithString(textField.stringValue.lowercaseString)
+    }
+}
+
+private extension NSTextField {
+    func updateWithCount(count: Int, unfilteredCount: Int) {
+        guard unfilteredCount >= count else { return }
+        if count == unfilteredCount {
+            self.stringValue = "\(count) documents"
+        } else {
+            self.stringValue = "\(count) of \(unfilteredCount) documents"
+        }
+        
     }
 }
 

@@ -883,6 +883,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="documentCountTextField" destination="P8z-ft-yZ7" id="d5V-FD-Q9N"/>
                         <outlet property="tableView" destination="jfS-ff-98k" id="LbR-BU-SBE"/>
                     </connections>
                 </viewController>
