@@ -75,10 +75,21 @@ class DocumentTableCellView: NSTableCellView {
                 frameworkTextField.stringValue = ""
             }
 
-            updateSizeTextField.stringValue = "\(document.updateSize.rawValue)"
+            updateSizeTextField.stringValue = document.updateSize.stringRepresentation
         }
         
         
     }
     
+}
+
+private extension CDDocument.UpdateSize {
+    var stringRepresentation : String {
+        switch self {
+        case .FirstVersion: return "First Version"
+        case .ContentUpdate: return "Content Update"
+        case .MinorChange: return "Minor Change"
+        case .Unknown: return "unknown"
+        }
+    }
 }
