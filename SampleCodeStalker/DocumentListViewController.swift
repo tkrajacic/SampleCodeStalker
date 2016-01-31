@@ -20,6 +20,7 @@ class DocumentListViewController: NSViewController {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var documentCountTextField: NSTextField!
+    @IBOutlet weak var activityIndicator: NSProgressIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()        
@@ -40,8 +41,11 @@ class DocumentListViewController: NSViewController {
         }
         dataSource.reloadDocuments()
         
+        activityIndicator.startAnimation(self)
         fetcher.fetch { json in
-            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json)
+            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json) {
+                self.activityIndicator.stopAnimation(self)
+            }
         }
     }
 
