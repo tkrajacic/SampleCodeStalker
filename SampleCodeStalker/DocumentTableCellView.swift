@@ -80,7 +80,14 @@ class DocumentTableCellView: NSTableCellView {
             }
 
             updateSizeTextField.stringValue = document.updateSize.stringRepresentation
+            
+            downloadButton.toolTip = document.url.absoluteString
         }
+    }
+    
+    @IBAction func downloadButtonPressed(sender: DownloadButton) {
+        guard let document = document else { return }
+        NSWorkspace.sharedWorkspace().openURL(document.url)
     }
 }
 

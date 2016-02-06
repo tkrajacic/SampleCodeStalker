@@ -11,6 +11,7 @@ import Cocoa
 struct DocumentParser {
     
     let moc : NSManagedObjectContext
+    let platform: AppleDocumentsAPI.Platform
     let dateFormatter : NSDateFormatter = {
         let df = NSDateFormatter()
         df.timeZone = NSTimeZone(name: "PST")
@@ -18,8 +19,9 @@ struct DocumentParser {
         return df
     }()
     
-    init(managedObjectContext: NSManagedObjectContext) {
+    init(managedObjectContext: NSManagedObjectContext, platform: AppleDocumentsAPI.Platform) {
         self.moc = managedObjectContext
+        self.platform = platform
     }
     
     func parse(json: [String:AnyObject], completionHandler: (()->Void)? = nil) {
@@ -117,10 +119,10 @@ struct DocumentParser {
         moc.performChanges {
         // for now let's ignore the columns and hardcode the order
         
-        // filter out everything that's not sample code
-        guard let sampleCodeType = CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "name == 'Sample Code'"))?.key
-        else { return }
-        
+            // filter out everything that's not sample code
+            guard let sampleCodeType = CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "name == 'Sample Code'"))?.key
+                else { return }
+            
             array.forEach { document in
                 guard let
                     name        = document[0] as? String,
@@ -133,19 +135,21 @@ struct DocumentParser {
                     framework   = document[6] as? Int,
                     release     = document[7] as? Int,
                     subtopic    = document[8] as? Int,
-                    url         = document[9] as? String,
+                    urlString   = document[9] as? String,
                     sortOrder   = document[10] as? Int,
                     displayDateString = document[11] as? String,
                     displayDate = self.dateFormatter.dateFromString(displayDateString)
                     where type == Int(sampleCodeType)
                     else { return }
                 
+                let cleanedURLString = urlString.hasPrefix("../") ? urlString.substringFromIndex(urlString.startIndex.advancedBy(3)) : urlString
+                let url = NSURL(string: AppleDocumentsAPI.rootURLString + self.platform.rawValue + "/" + cleanedURLString)!
                 
                 CDDocument.updateOrInsertIntoContext(self.moc,
                     identifier: idString,
                     name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
                     type: CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(type)")),
-                    url: NSURL(string: url)!,
+                    url: url,
                     date: date,
                     displayDate: displayDate,
                     sortOrder: Int16(sortOrder) ?? 0,

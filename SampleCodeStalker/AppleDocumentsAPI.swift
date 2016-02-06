@@ -9,19 +9,19 @@
 import Foundation
 
 enum AppleDocumentsAPI {
-    private static let rootURLString: String = "https://developer.apple.com/library/"
+    static let rootURLString: String = "https://developer.apple.com/library/"
     
     enum Platform : String {
-        case Mac = "mac", iOS = "ios"
+        case Mac = "mac", iOS = "ios", tvOS = "tvos", watchOS = "watchos"
     }
     
     case Index(Platform)
-//    case SampleCode(Platform)
+    case SampleCode(document: CDDocument)
     
     var url: NSURL {
         switch self {
         case .Index(let platform): return NSURL(string: AppleDocumentsAPI.rootURLString + platform.rawValue + "/navigation/library.json")!
-//        case .SampleCode(let platform): return AppleDocumentsAPI.rootURLString + platform.rawValue + "/..."
+        case .SampleCode(let document): return document.url
         }
     }
 }

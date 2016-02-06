@@ -16,7 +16,7 @@ class DocumentListViewController: NSViewController {
     private var tableViewAdapter : TableViewAdapter<DocumentsCellFactory>!
     private var cellFactory : DocumentsCellFactory!
 
-    let fetcher = DocumentFetcher(endpoint: .Index(.Mac))
+    let fetcher = DocumentFetcher(endpoint: .Index(.iOS))
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var documentCountTextField: NSTextField!
@@ -43,7 +43,7 @@ class DocumentListViewController: NSViewController {
         
         activityIndicator.startAnimation(self)
         fetcher.fetch { json in
-            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json) {
+            DocumentParser(managedObjectContext: self.dataSource.moc, platform: .iOS).parse(json) {
                 self.activityIndicator.stopAnimation(self)
             }
         }

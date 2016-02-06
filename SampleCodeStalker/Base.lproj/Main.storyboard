@@ -770,6 +770,9 @@
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
+                                                                    <connections>
+                                                                        <action selector="downloadButtonPressed:" target="3Xj-03-Rob" id="4dS-g2-2zA"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eVY-rY-5gH">
                                                                     <rect key="frame" x="386" y="4" width="63" height="14"/>
