@@ -13,7 +13,8 @@ struct DocumentParser {
     let moc : NSManagedObjectContext
     let dateFormatter : NSDateFormatter = {
         let df = NSDateFormatter()
-        df.dateFormat = "YYYY-mm-dd"
+        df.timeZone = NSTimeZone(name: "PST")
+        df.dateFormat = "yyyy-MM-dd"
         return df
     }()
     
