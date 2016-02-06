@@ -20,6 +20,7 @@ class DocumentTableCellView: NSTableCellView {
         return df
     }()
 
+    @IBOutlet weak var downloadButton: NSButton!
     @IBOutlet weak var nameTextField: NSTextField!
     @IBOutlet weak var dateTextField: NSTextField!
     @IBOutlet weak var tagStackView: NSStackView!
@@ -80,7 +81,7 @@ class DocumentTableCellView: NSTableCellView {
 
             updateSizeTextField.stringValue = document.updateSize.stringRepresentation
         }
-    }    
+    }
 }
 
 private extension CDDocument.UpdateSize {

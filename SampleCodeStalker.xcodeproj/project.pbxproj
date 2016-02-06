@@ -40,6 +40,7 @@
 		44EE8B1A1C5408A1000FC76A /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE8B191C5408A1000FC76A /* DataSource.swift */; };
 		44EE8B1C1C5409AA000FC76A /* TableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */; };
 		44EE8B1E1C5409E6000FC76A /* TableViewCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */; };
+		44FCEE3E1C5E5E7200D1F3F2 /* DownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FCEE3D1C5E5E7200D1F3F2 /* DownloadButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		44EE8B191C5408A1000FC76A /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewAdapter.swift; sourceTree = "<group>"; };
 		44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellFactory.swift; sourceTree = "<group>"; };
+		44FCEE3D1C5E5E7200D1F3F2 /* DownloadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				44C344C71C537E8E0068AD9D /* DocumentFetcher.swift */,
 				44C344C91C53833E0068AD9D /* DocumentParser.swift */,
 				44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */,
+				44FCEE3D1C5E5E7200D1F3F2 /* DownloadButton.swift */,
 				44C344B91C5363910068AD9D /* Model */,
 				44C344971C5363220068AD9D /* objc.io code */,
 				44C344B81C5363620068AD9D /* Supporting Files */,
@@ -256,6 +259,7 @@
 				44EE8B1A1C5408A1000FC76A /* DataSource.swift in Sources */,
 				44C344B31C5363220068AD9D /* NSManagedObjectContext+Observers.swift in Sources */,
 				44C344A81C5363220068AD9D /* Collection+CoreDataExtensions.swift in Sources */,
+				44FCEE3E1C5E5E7200D1F3F2 /* DownloadButton.swift in Sources */,
 				44C344B01C5363220068AD9D /* NSFetchRequest+Extensions.swift in Sources */,
 				44C344AC1C5363220068AD9D /* ManagedObjectObserver.swift in Sources */,
 				44C344B21C5363220068AD9D /* NSManagedObjectContext+Extensions.swift in Sources */,

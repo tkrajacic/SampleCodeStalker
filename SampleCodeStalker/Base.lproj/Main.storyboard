@@ -714,16 +714,8 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6FH-S7-3Oj">
-                                                                    <rect key="frame" x="388" y="26" width="83" height="14"/>
+                                                                    <rect key="frame" x="366" y="26" width="83" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="last updated at" id="yPg-Kr-UyD">
-                                                                        <font key="font" metaFont="smallSystem"/>
-                                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eVY-rY-5gH">
-                                                                    <rect key="frame" x="408" y="4" width="63" height="14"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="updateSize" id="QqY-U0-0yB">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -735,7 +727,7 @@
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pd8-XC-oea">
                                                                             <rect key="frame" x="-2" y="0.0" width="33" height="14"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Topic" id="tz0-0Y-ANf">
-                                                                                <font key="font" metaFont="system" size="11"/>
+                                                                                <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -743,7 +735,7 @@
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dd1-tv-Ngw">
                                                                             <rect key="frame" x="35" y="0.0" width="53" height="14"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SubTopic" id="0tb-qp-dVa">
-                                                                                <font key="font" metaFont="system" size="11"/>
+                                                                                <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -751,7 +743,7 @@
                                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9bt-Ul-mpk">
                                                                             <rect key="frame" x="92" y="0.0" width="62" height="14"/>
                                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Framework" id="WZZ-IJ-KV9">
-                                                                                <font key="font" metaFont="system" size="11"/>
+                                                                                <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -768,21 +760,43 @@
                                                                         <real value="3.4028234663852886e+38"/>
                                                                     </customSpacing>
                                                                 </stackView>
+                                                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="esk-Yy-NXJ" customClass="DownloadButton" customModule="SampleCodeStalker" customModuleProvider="target">
+                                                                    <rect key="frame" x="455" y="15" width="14" height="14"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="14" id="GhP-AG-5Yz"/>
+                                                                        <constraint firstAttribute="width" constant="14" id="sbB-0s-7vx"/>
+                                                                    </constraints>
+                                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Bly-zw-akR">
+                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                        <font key="font" metaFont="system"/>
+                                                                    </buttonCell>
+                                                                </button>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eVY-rY-5gH">
+                                                                    <rect key="frame" x="386" y="4" width="63" height="14"/>
+                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="updateSize" id="QqY-U0-0yB">
+                                                                        <font key="font" metaFont="smallSystem"/>
+                                                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                    </textFieldCell>
+                                                                </textField>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="eVY-rY-5gH" secondAttribute="bottom" constant="4" id="7dq-wR-OMa"/>
                                                                 <constraint firstItem="6FH-S7-3Oj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BO8-6I-Q8I" secondAttribute="trailing" constant="8" symbolic="YES" id="9NA-w3-LVG"/>
                                                                 <constraint firstItem="BO8-6I-Q8I" firstAttribute="leading" secondItem="3Xj-03-Rob" secondAttribute="leading" constant="8" id="C9W-5H-FfO"/>
+                                                                <constraint firstItem="esk-Yy-NXJ" firstAttribute="leading" secondItem="6FH-S7-3Oj" secondAttribute="trailing" constant="8" symbolic="YES" id="FJC-Ys-zmP"/>
                                                                 <constraint firstItem="vCZ-BG-hqc" firstAttribute="leading" secondItem="BO8-6I-Q8I" secondAttribute="leading" id="Hws-gg-drS"/>
-                                                                <constraint firstAttribute="trailing" secondItem="6FH-S7-3Oj" secondAttribute="trailing" constant="8" id="SEX-cy-gA8"/>
+                                                                <constraint firstItem="esk-Yy-NXJ" firstAttribute="centerY" secondItem="3Xj-03-Rob" secondAttribute="centerY" id="ONI-ta-0he"/>
                                                                 <constraint firstItem="6FH-S7-3Oj" firstAttribute="top" secondItem="3Xj-03-Rob" secondAttribute="top" constant="4" id="dHT-W1-fgs"/>
                                                                 <constraint firstItem="BO8-6I-Q8I" firstAttribute="top" secondItem="3Xj-03-Rob" secondAttribute="top" constant="4" id="g94-Xf-I3M"/>
+                                                                <constraint firstAttribute="trailing" secondItem="esk-Yy-NXJ" secondAttribute="trailing" constant="8" id="klH-cT-XxB"/>
                                                                 <constraint firstItem="eVY-rY-5gH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vCZ-BG-hqc" secondAttribute="trailing" constant="8" symbolic="YES" id="nW2-Ic-Ori"/>
                                                                 <constraint firstAttribute="bottom" secondItem="vCZ-BG-hqc" secondAttribute="bottom" constant="4" id="tqg-lz-CLN"/>
                                                                 <constraint firstItem="eVY-rY-5gH" firstAttribute="trailing" secondItem="6FH-S7-3Oj" secondAttribute="trailing" id="yFu-0s-9ZR"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="dateTextField" destination="6FH-S7-3Oj" id="Wca-nO-ruG"/>
+                                                                <outlet property="downloadButton" destination="esk-Yy-NXJ" id="G51-Iv-djA"/>
                                                                 <outlet property="frameworkTextField" destination="9bt-Ul-mpk" id="gyq-77-Ucu"/>
                                                                 <outlet property="nameTextField" destination="BO8-6I-Q8I" id="vEL-jB-wU8"/>
                                                                 <outlet property="subTopicTextField" destination="Dd1-tv-Ngw" id="W78-5l-yUu"/>
