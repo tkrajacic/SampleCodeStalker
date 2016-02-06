@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		441CC9B31C6600F6000F6A91 /* AppleDocumentsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC9B21C6600F6000F6A91 /* AppleDocumentsAPI.swift */; };
 		44C344891C5362CB0068AD9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C344881C5362CB0068AD9D /* AppDelegate.swift */; };
 		44C3448B1C5362CB0068AD9D /* DocumentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C3448A1C5362CB0068AD9D /* DocumentListViewController.swift */; };
 		44C3448D1C5362CB0068AD9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44C3448C1C5362CB0068AD9D /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		441CC9B21C6600F6000F6A91 /* AppleDocumentsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleDocumentsAPI.swift; sourceTree = "<group>"; };
 		44C344851C5362CB0068AD9D /* SampleCodeStalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleCodeStalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44C344881C5362CB0068AD9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44C3448A1C5362CB0068AD9D /* DocumentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */,
 				44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */,
 				44C344C71C537E8E0068AD9D /* DocumentFetcher.swift */,
+				441CC9B21C6600F6000F6A91 /* AppleDocumentsAPI.swift */,
 				44C344C91C53833E0068AD9D /* DocumentParser.swift */,
 				44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */,
 				44FCEE3D1C5E5E7200D1F3F2 /* DownloadButton.swift */,
@@ -284,6 +287,7 @@
 				44EE8B1C1C5409AA000FC76A /* TableViewAdapter.swift in Sources */,
 				44C344CD1C5395ED0068AD9D /* Document.swift in Sources */,
 				44C344AF1C5363220068AD9D /* ModelVersionType.swift in Sources */,
+				441CC9B31C6600F6000F6A91 /* AppleDocumentsAPI.swift in Sources */,
 				44C344BE1C536A130068AD9D /* CDDocument.swift in Sources */,
 				44C344B41C5363220068AD9D /* NSPersistentStoreCoordinator+Extensions.swift in Sources */,
 				44C344B11C5363220068AD9D /* NSManagedObject+Extensions.swift in Sources */,

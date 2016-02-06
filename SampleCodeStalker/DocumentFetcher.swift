@@ -34,7 +34,11 @@ struct DocumentFetcher {
                 
             }
         }.resume()
-        
     }
-    
+}
+
+extension DocumentFetcher {
+    init(endpoint: AppleDocumentsAPI) {
+        self.url = endpoint.url
+    }
 }

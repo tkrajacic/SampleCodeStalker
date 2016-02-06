@@ -16,7 +16,7 @@ class DocumentListViewController: NSViewController {
     private var tableViewAdapter : TableViewAdapter<DocumentsCellFactory>!
     private var cellFactory : DocumentsCellFactory!
 
-    let fetcher = DocumentFetcher(url: NSURL(string: "https://developer.apple.com/library/mac/navigation/library.json")!)
+    let fetcher = DocumentFetcher(endpoint: .Index(.Mac))
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var documentCountTextField: NSTextField!
