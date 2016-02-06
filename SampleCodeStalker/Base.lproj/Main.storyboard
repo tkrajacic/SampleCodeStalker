@@ -878,14 +878,26 @@
                                     <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="nKc-jO-f4o">
                                         <rect key="frame" x="456" y="6" width="16" height="16"/>
                                     </progressIndicator>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UKw-Ts-rwP">
+                                        <rect key="frame" x="379" y="7" width="71" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="activityLabel" id="1mR-nh-rIW">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="nKc-jO-f4o" firstAttribute="leading" secondItem="UKw-Ts-rwP" secondAttribute="trailing" constant="8" id="35X-70-tqy"/>
                                     <constraint firstItem="nKc-jO-f4o" firstAttribute="centerY" secondItem="d9X-rT-bKU" secondAttribute="centerY" id="99Z-T3-GrC"/>
-                                    <constraint firstItem="P8z-ft-yZ7" firstAttribute="centerX" secondItem="d9X-rT-bKU" secondAttribute="centerX" id="FdP-HT-lHE"/>
+                                    <constraint firstItem="P8z-ft-yZ7" firstAttribute="centerX" secondItem="d9X-rT-bKU" secondAttribute="centerX" priority="250" id="FdP-HT-lHE"/>
                                     <constraint firstItem="P8z-ft-yZ7" firstAttribute="centerY" secondItem="d9X-rT-bKU" secondAttribute="centerY" id="Uyc-YJ-IPl"/>
                                     <constraint firstAttribute="trailing" secondItem="K06-jU-MMv" secondAttribute="trailing" id="e8g-wP-t3b"/>
+                                    <constraint firstItem="P8z-ft-yZ7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="d9X-rT-bKU" secondAttribute="leading" constant="20" symbolic="YES" id="gTJ-Jd-9ai"/>
                                     <constraint firstAttribute="height" constant="28" id="h05-se-UuU"/>
                                     <constraint firstAttribute="trailing" secondItem="nKc-jO-f4o" secondAttribute="trailing" constant="8" id="k6c-29-RTd"/>
+                                    <constraint firstItem="UKw-Ts-rwP" firstAttribute="centerY" secondItem="nKc-jO-f4o" secondAttribute="centerY" id="mu5-9Y-17x"/>
+                                    <constraint firstItem="UKw-Ts-rwP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="P8z-ft-yZ7" secondAttribute="trailing" constant="8" symbolic="YES" id="obH-9e-Br7"/>
                                     <constraint firstItem="K06-jU-MMv" firstAttribute="leading" secondItem="d9X-rT-bKU" secondAttribute="leading" id="tNE-aV-CsF"/>
                                     <constraint firstItem="K06-jU-MMv" firstAttribute="top" secondItem="d9X-rT-bKU" secondAttribute="top" id="w4X-hG-Poe"/>
                                 </constraints>
@@ -906,6 +918,7 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="nKc-jO-f4o" id="Emk-kG-cv8"/>
+                        <outlet property="activityLabel" destination="UKw-Ts-rwP" id="WSe-qn-tPo"/>
                         <outlet property="documentCountTextField" destination="P8z-ft-yZ7" id="d5V-FD-Q9N"/>
                         <outlet property="tableView" destination="jfS-ff-98k" id="LbR-BU-SBE"/>
                     </connections>

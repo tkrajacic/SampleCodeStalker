@@ -15,12 +15,13 @@ class DocumentListViewController: NSViewController {
     private let dataSource = DataSource<TableViewAdapter<DocumentsCellFactory>>()
     private var tableViewAdapter : TableViewAdapter<DocumentsCellFactory>!
     private var cellFactory : DocumentsCellFactory!
-
-    let fetcher = DocumentFetcher(endpoint: .Index(.iOS))
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var documentCountTextField: NSTextField!
     @IBOutlet weak var activityIndicator: NSProgressIndicator!
+    @IBOutlet weak var activityLabel: NSTextField! {
+        didSet { setActivityTitle("") }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()        
@@ -42,10 +43,47 @@ class DocumentListViewController: NSViewController {
         dataSource.reloadDocuments()
         
         activityIndicator.startAnimation(self)
-        fetcher.fetch { json in
+        
+        self.setActivityTitle("Fetching iOS Documents")
+        DocumentFetcher(endpoint: .Index(.iOS)).fetch { json in
+            self.setActivityTitle("Parsing iOS Documents")
             DocumentParser(managedObjectContext: self.dataSource.moc, platform: .iOS).parse(json) {
-                self.activityIndicator.stopAnimation(self)
+                
+                self.setActivityTitle("Fetching Mac Documents")
+                DocumentFetcher(endpoint: .Index(.Mac)).fetch { json in
+                    self.setActivityTitle("Parsing Mac Documents")
+                    DocumentParser(managedObjectContext: self.dataSource.moc, platform: .Mac).parse(json) {
+                        
+                        self.setActivityTitle("Fetching watchOS Documents")
+                        DocumentFetcher(endpoint: .Index(.watchOS)).fetch { json in
+                            self.setActivityTitle("Parsing watchOS Documents")
+                            DocumentParser(managedObjectContext: self.dataSource.moc, platform: .watchOS).parse(json) {
+                                
+                                self.setActivityTitle("Fetching tvOS Documents")
+                                DocumentFetcher(endpoint: .Index(.tvOS)).fetch { json in
+                                    self.setActivityTitle("Parsing tvOS Documents")
+                                    DocumentParser(managedObjectContext: self.dataSource.moc, platform: .tvOS).parse(json) {
+                                        self.setActivityTitle("")
+                                        self.activityIndicator.stopAnimation(self)
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+                
             }
+        }
+    }
+    
+    private func setActivityTitle(text: String?) {
+        if let text = text where text != "" {
+            activityLabel.stringValue = text
+            activityLabel.hidden = false
+        } else {
+            activityLabel.stringValue = ""
+            activityLabel.hidden = true
         }
     }
 }
