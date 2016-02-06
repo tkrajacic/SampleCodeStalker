@@ -199,6 +199,7 @@
 				44C344811C5362CB0068AD9D /* Sources */,
 				44C344821C5362CB0068AD9D /* Frameworks */,
 				44C344831C5362CB0068AD9D /* Resources */,
+				441CC9B41C663C60000F6A91 /* Create version and build number */,
 			);
 			buildRules = (
 			);
@@ -253,6 +254,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		441CC9B41C663C60000F6A91 /* Create version and build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create version and build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "#!/bin/bash\n# Xcode: Set version and build number from Git\n# --------------------------------------------\n#\n# This script sets the version number `CFBundleShortVersionString` to one of\n#\n# - `1.2.3` -- for the tagged commit `v1.2.3` or a hyphen-separated prerelease,\n#   e.g. `v1.2.3-alpha`, `v1.2.3-alpha.2`, `v1.2.3-beta`, `v1.2.3-rc`.\n# - `1.2.3-7-gabc1234` -- at commit `abc1234`, 7 commits after `v1.2.3`,\n# - `1.2.3-7-gabc1234-dirty` -- when there are uncommitted changes, or\n# - `abc1234` or `abc1234-dirty`, respectively -- if there is no previous tag.\n#\n# and the build number `CFBundleVersion` to the number of Git commits up to the\n# current `HEAD`. (That should be a pretty much monotonically growing number\n# that is okay for the App Store. If not,)\n#\n# When about to release a new version, create a prerelease like\n#\n#     git tag v1.2.3-rc.1\n#\n# and then build and archive. The script strips the hyphen-separated part from\n# the resulting binary\n#\n# Once everything looks okay and the release is tested\n# to work, set the version in stone, with release notes in the message, by running:\n#\n#     git tag -s v1.2.3  # signed using your GPG key\n#     git tag -a v1.2.3  # unsigned\n#\n# Remember to push the tags to origin too:\n#\n#     git push --tags origin\n#\n# Read more about semantic versioning: http://semver.org\n\n\nset -e\n\nfunction strip-v () { echo -n \"${1#v}\"; }\nfunction strip-pre () { local x=\"${1#v}\"; echo -n \"${x%-*}\"; }\n\nPLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH%.*}\"\n\nif [[ -d \"${SRCROOT}/.git\" ]];\nthen\n\nCOMMIT=$(git --git-dir=\"${SRCROOT}/.git\" rev-parse HEAD)\n\nLATEST=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2> /dev/null || true)\nSTATIC=\"$(defaults read \"${SRCROOT}/${INFOPLIST_FILE}\" \"CFBundleShortVersionString\" 2> /dev/null || true)\"\nif [[ -n \"$STATIC\" ]] && [[ \"$STATIC\" != $(strip-pre \"${LATEST}\") ]];\nthen\necho \"warning: CFBundleShortVersionString ${STATIC} disagrees with tag ${LATEST}\"\nfi\n\nTAG=$(strip-pre $(git describe --tags --match 'v[0-9]*' --abbrev=0 --exact-match 2> /dev/null || true))\nFULL_VERSION=$(strip-v $(git describe --tags --match 'v[0-9]*' --always --dirty))\nBUILD=$(echo -n $(git rev-list HEAD | wc -l))\nif [[ \"${FULL_VERSION}\" == *\"-dirty\" ]];\nthen\necho \"warning: There are uncommitted changes in Git\"\nSHORT_VERSION=\"${FULL_VERSION}\"\nelse\nSHORT_VERSION=\"${TAG:-${FULL_VERSION}}\"\nfi\n\ndefaults write \"${PLIST}\" \"CFBundleShortVersionString\" -string \"${SHORT_VERSION}\"\ndefaults write \"${PLIST}\" \"CFBundleVersion\"            -string \"${BUILD}\"\ndefaults write \"${PLIST}\" \"Commit\"                     -string \"${COMMIT}\"\n\nelse\n\necho \"warning: Building outside Git. Leaving version number untouched.\"\n\nfi\n\necho \"CFBundleIdentifier:\"         \"$(defaults read \"${PLIST}\" CFBundleIdentifier)\"\necho \"CFBundleShortVersionString:\" \"$(defaults read \"${PLIST}\" CFBundleShortVersionString)\"\necho \"CFBundleVersion:\"            \"$(defaults read \"${PLIST}\" CFBundleVersion)\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		44C344811C5362CB0068AD9D /* Sources */ = {
