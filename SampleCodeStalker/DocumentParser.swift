@@ -24,7 +24,7 @@ struct DocumentParser {
         self.platform = platform
     }
     
-    func parse(json: [String:AnyObject], completionHandler: (()->Void)? = nil) {
+    func parse(json: [String:AnyObject], completionHandler: (() -> Void)? = nil) {
         
         // This should have: topics (Resource Types, Topics, Frameworks), updateSize, columns, documents
         guard let
@@ -34,8 +34,7 @@ struct DocumentParser {
             documents = json.documents,
             columns = json.columns
         else {
-            print("Unexpected data")
-            return
+            return print("Unexpected data")
         }
         
         parseResourceTypes(resourceTypes)
