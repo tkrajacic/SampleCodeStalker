@@ -96,6 +96,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4415E66D1C68BE2200CA949F /* Documents API */ = {
+			isa = PBXGroup;
+			children = (
+				441CC9B21C6600F6000F6A91 /* AppleDocumentsAPI.swift */,
+				44C344C71C537E8E0068AD9D /* DocumentFetcher.swift */,
+				44C344C91C53833E0068AD9D /* DocumentParser.swift */,
+			);
+			name = "Documents API";
+			sourceTree = "<group>";
+		};
+		4415E66E1C68BECA00CA949F /* Views & Windows */ = {
+			isa = PBXGroup;
+			children = (
+				44C344DD1C53FD3C0068AD9D /* MainWindow.swift */,
+				44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */,
+				44FCEE3D1C5E5E7200D1F3F2 /* DownloadButton.swift */,
+			);
+			name = "Views & Windows";
+			sourceTree = "<group>";
+		};
+		4415E66F1C68BEEE00CA949F /* Documents List */ = {
+			isa = PBXGroup;
+			children = (
+				44C3448A1C5362CB0068AD9D /* DocumentListViewController.swift */,
+				44EE8B191C5408A1000FC76A /* DataSource.swift */,
+				44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */,
+				44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */,
+			);
+			name = "Documents List";
+			sourceTree = "<group>";
+		};
 		44C3447C1C5362CB0068AD9D = {
 			isa = PBXGroup;
 			children = (
@@ -115,18 +146,10 @@
 		44C344871C5362CB0068AD9D /* SampleCodeStalker */ = {
 			isa = PBXGroup;
 			children = (
-				44C344881C5362CB0068AD9D /* AppDelegate.swift */,
 				44C3448E1C5362CB0068AD9D /* Main.storyboard */,
-				44C344DD1C53FD3C0068AD9D /* MainWindow.swift */,
-				44C3448A1C5362CB0068AD9D /* DocumentListViewController.swift */,
-				44EE8B191C5408A1000FC76A /* DataSource.swift */,
-				44EE8B1B1C5409AA000FC76A /* TableViewAdapter.swift */,
-				44EE8B1D1C5409E6000FC76A /* TableViewCellFactory.swift */,
-				44C344C71C537E8E0068AD9D /* DocumentFetcher.swift */,
-				441CC9B21C6600F6000F6A91 /* AppleDocumentsAPI.swift */,
-				44C344C91C53833E0068AD9D /* DocumentParser.swift */,
-				44C344D91C53CBF20068AD9D /* DocumentTableCellView.swift */,
-				44FCEE3D1C5E5E7200D1F3F2 /* DownloadButton.swift */,
+				4415E66F1C68BEEE00CA949F /* Documents List */,
+				4415E66E1C68BECA00CA949F /* Views & Windows */,
+				4415E66D1C68BE2200CA949F /* Documents API */,
 				44C344B91C5363910068AD9D /* Model */,
 				44C344971C5363220068AD9D /* objc.io code */,
 				44C344B81C5363620068AD9D /* Supporting Files */,
@@ -161,6 +184,7 @@
 		44C344B81C5363620068AD9D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				44C344881C5362CB0068AD9D /* AppDelegate.swift */,
 				44C3448C1C5362CB0068AD9D /* Assets.xcassets */,
 				44C344911C5362CB0068AD9D /* Info.plist */,
 			);
