@@ -50,39 +50,41 @@ class DocumentTableCellView: NSTableCellView {
     var document : CDDocument? {
         didSet {
             guard let document = document else { return }
-        
-            nameTextField.stringValue = document.name
-            dateTextField.stringValue = DocumentTableCellView.dateFormatter.stringFromDate(document.date)
-        
-            if let topicName = document.topic?.name where topicName != "" {
-                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: topicTextField)
-                topicTextField.stringValue = topicName
-            } else {
-                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: topicTextField)
-                topicTextField.stringValue = ""
-            }
-
-            if let subTopicName = document.subTopic?.name where subTopicName != "" {
-                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: subTopicTextField)
-                subTopicTextField.stringValue = subTopicName
-            } else {
-                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: subTopicTextField)
-                subTopicTextField.stringValue = ""
-
-            }
-            
-            if let frameworkName = document.framework?.name where frameworkName != "" {
-                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: frameworkTextField)
-                frameworkTextField.stringValue = frameworkName
-            } else {
-                tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: frameworkTextField)
-                frameworkTextField.stringValue = ""
-            }
-
-            updateSizeTextField.stringValue = document.updateSize.stringRepresentation
-            
-            downloadButton.toolTip = document.url.absoluteString
+            configureWithDocument(document)
         }
+    }
+    
+    private func configureWithDocument(document: CDDocument) {
+        nameTextField.stringValue = document.name
+        dateTextField.stringValue = DocumentTableCellView.dateFormatter.stringFromDate(document.date)
+        
+        if let topicName = document.topic?.name where topicName != "" {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: topicTextField)
+            topicTextField.stringValue = topicName
+        } else {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: topicTextField)
+            topicTextField.stringValue = ""
+        }
+        
+        if let subTopicName = document.subTopic?.name where subTopicName != "" {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: subTopicTextField)
+            subTopicTextField.stringValue = subTopicName
+        } else {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: subTopicTextField)
+            subTopicTextField.stringValue = ""
+        }
+        
+        if let frameworkName = document.framework?.name where frameworkName != "" {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: frameworkTextField)
+            frameworkTextField.stringValue = frameworkName
+        } else {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: frameworkTextField)
+            frameworkTextField.stringValue = ""
+        }
+        
+        updateSizeTextField.stringValue = document.updateSize.stringRepresentation
+        
+        downloadButton.toolTip = document.url.absoluteString
     }
     
     @IBAction func downloadButtonPressed(sender: DownloadButton) {
