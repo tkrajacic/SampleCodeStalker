@@ -139,10 +139,10 @@ class DownloadButton: NSButton {
         switch (isMousedOver, isActive) {
             case (true, true): shapeLayer.fillColor = Colors.Active
             case (true, false): shapeLayer.fillColor = Colors.Tint
-            default : shapeLayer.fillColor = Colors.DarkTint
+            default: shapeLayer.fillColor = Colors.DarkTint
         }
         
-        rootLayer.opacity = enabled ? kEnabledOpacity : kDisabledOpacity
+        rootLayer.opacity = enabled ? kEnabledOpacity: kDisabledOpacity
         
         CATransaction.commit()
     }

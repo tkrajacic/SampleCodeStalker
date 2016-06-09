@@ -13,8 +13,8 @@ class DocumentListViewController: NSViewController {
     private typealias DocumentsCellFactory = TableViewCellFactory<DocumentTableCellView, CDDocument>
     
     private let dataSource = DataSource<TableViewAdapter<DocumentsCellFactory>>()
-    private var tableViewAdapter : TableViewAdapter<DocumentsCellFactory>!
-    private var cellFactory : DocumentsCellFactory!
+    private var tableViewAdapter: TableViewAdapter<DocumentsCellFactory>!
+    private var cellFactory: DocumentsCellFactory!
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var documentCountTextField: NSTextField!
@@ -91,7 +91,7 @@ class DocumentListViewController: NSViewController {
 }
 
 // MARK: - NSTableViewDelegate
-extension DocumentListViewController : NSTableViewDelegate {
+extension DocumentListViewController: NSTableViewDelegate {
     
     func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let tableColumn = tableColumn where row < dataSource.items.count else { return nil }
@@ -100,7 +100,7 @@ extension DocumentListViewController : NSTableViewDelegate {
 }
 
 // MARK: - NSSearchFieldDelegate
-extension DocumentListViewController : NSSearchFieldDelegate {
+extension DocumentListViewController: NSSearchFieldDelegate {
     
     override func controlTextDidChange(obj: NSNotification) {
         guard let textField = obj.object as? NSTextField else { return }
@@ -112,10 +112,10 @@ private extension NSTextField {
     
     func updateWithCount(count: Int, unfilteredCount: Int) {
         guard unfilteredCount >= count else { return }
-        self.stringValue = count == unfilteredCount ? "\(count) documents" : "\(count) of \(unfilteredCount) documents"
+        self.stringValue = count == unfilteredCount ? "\(count) documents": "\(count) of \(unfilteredCount) documents"
     }
 }
 
-extension CDDocument : ReuseIdentifierCreatable {
-    var cellReuseIdentifier : String { return "DocumentCell" }
+extension CDDocument: ReuseIdentifierCreatable {
+    var cellReuseIdentifier: String { return "DocumentCell" }
 }

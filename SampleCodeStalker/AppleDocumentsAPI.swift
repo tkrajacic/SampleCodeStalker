@@ -11,7 +11,7 @@ import Foundation
 enum AppleDocumentsAPI {
     static let rootURLString: String = "https://developer.apple.com/library/"
     
-    enum Platform : String {
+    enum Platform: String {
         case Mac = "mac", iOS = "ios", tvOS = "tvos", watchOS = "watchos"
     }
     

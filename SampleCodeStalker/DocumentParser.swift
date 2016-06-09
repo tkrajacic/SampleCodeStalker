@@ -10,9 +10,9 @@ import Cocoa
 
 struct DocumentParser {
     
-    let moc : NSManagedObjectContext
+    let moc: NSManagedObjectContext
     let platform: AppleDocumentsAPI.Platform
-    let dateFormatter : NSDateFormatter = {
+    let dateFormatter: NSDateFormatter = {
         let df = NSDateFormatter()
         df.timeZone = NSTimeZone(name: "PST")
         df.dateFormat = "yyyy-MM-dd"
@@ -141,7 +141,7 @@ struct DocumentParser {
                     where type == Int(sampleCodeType)
                     else { return }
                 
-                let cleanedURLString = urlString.hasPrefix("../") ? urlString.substringFromIndex(urlString.startIndex.advancedBy(3)) : urlString
+                let cleanedURLString = urlString.hasPrefix("../") ? urlString.substringFromIndex(urlString.startIndex.advancedBy(3)): urlString
                 let url = NSURL(string: AppleDocumentsAPI.rootURLString + self.platform.rawValue + "/" + cleanedURLString)!
                 
                 CDDocument.updateOrInsertIntoContext(self.moc,
@@ -165,31 +165,31 @@ struct DocumentParser {
 
 private extension Dictionary where Key: StringLiteralConvertible, Value: AnyObject {
     
-    var sections : [[String:AnyObject]]? {
+    var sections: [[String:AnyObject]]? {
         return self["topics"] as? [[String:AnyObject]]
     }
     
-    var resourceTypes : [[String:AnyObject]]? {
+    var resourceTypes: [[String:AnyObject]]? {
         return self.sections?.filter({ ($0["name"] as? String) == "Resource Types" }).first?["contents"] as? [[String:AnyObject]]
     }
     
-    var frameworks : [[String:AnyObject]]? {
+    var frameworks: [[String:AnyObject]]? {
         return self.sections?.filter({ ($0["name"] as? String) == "Frameworks" }).first?["contents"] as? [[String:AnyObject]]
     }
     
-    var topics : [[String:AnyObject]]? {
+    var topics: [[String:AnyObject]]? {
         return self.sections?.filter({ ($0["name"] as? String) == "Topics" }).first?["contents"] as? [[String:AnyObject]]
     }
     
-    var documents : [[AnyObject]]? {
+    var documents: [[AnyObject]]? {
         return self["documents"] as? [[AnyObject]]
     }
     
-    var columns : [String:Int]? {
+    var columns: [String:Int]? {
         return self["columns"] as? [String:Int]
     }
     
-    var updateSize : [String]? {
+    var updateSize: [String]? {
         return self["updateSize"] as? [String]
     }
 }

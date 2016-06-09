@@ -13,7 +13,7 @@ class DocumentTableCellView: NSTableCellView {
     static let TopicColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.5).CGColor
     static let FrameworkColor = NSColor(calibratedHue: 0.5, saturation: 0.8, brightness: 0.8, alpha: 0.5).CGColor
     
-    static let dateFormatter : NSDateFormatter = {
+    static let dateFormatter: NSDateFormatter = {
         let df = NSDateFormatter()
         df.dateStyle = .MediumStyle
         df.timeStyle = .NoStyle
@@ -47,7 +47,7 @@ class DocumentTableCellView: NSTableCellView {
     }
     @IBOutlet weak var updateSizeTextField: NSTextField!
     
-    var document : CDDocument? {
+    var document: CDDocument? {
         didSet {
             guard let document = document else { return }
             mainThread { 
@@ -97,7 +97,7 @@ class DocumentTableCellView: NSTableCellView {
 }
 
 private extension CDDocument.UpdateSize {
-    var stringRepresentation : String {
+    var stringRepresentation: String {
         switch self {
         case .FirstVersion: return "First Version"
         case .ContentUpdate: return "Content Update"

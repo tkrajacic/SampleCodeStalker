@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class CDResourceType : ManagedObject {
+public class CDResourceType: ManagedObject {
     
     @NSManaged public private(set) var id: String
     @NSManaged public private(set) var name: String
@@ -21,7 +21,7 @@ public class CDResourceType : ManagedObject {
 }
 
 // MARK: - ManagedObjectType
-extension CDResourceType : ManagedObjectType {
+extension CDResourceType: ManagedObjectType {
     
     public static var entityName: String {
         return "CDResourceType"

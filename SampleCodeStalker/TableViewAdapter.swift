@@ -12,12 +12,12 @@ import Cocoa
 final class TableViewAdapter<Factory: TableViewCellFactoryType where Factory.Item: ManagedObject, Factory.Item: ManagedObjectType, Factory.Item: StringFilterable> {
     typealias Item = Factory.Item
     
-    let tableView : NSTableView!
-    var cellFactory : Factory
+    let tableView: NSTableView!
+    var cellFactory: Factory
     let dataSource: DataSource<TableViewAdapter<Factory>>
     
-    var bridgedDataSource : NSTableViewDataSource { return bridgedTableViewDataSource }
-    var bridgedDelegate : NSTableViewDelegate { return bridgedTableViewDataSource }
+    var bridgedDataSource: NSTableViewDataSource { return bridgedTableViewDataSource }
+    var bridgedDelegate: NSTableViewDelegate { return bridgedTableViewDataSource }
     
     private lazy var bridgedTableViewDataSource: BridgableTableViewAdapter = BridgableTableViewAdapter(
         cellForItemAtColumnRowHandler: { self.viewForTableColumn($1, row: $2) } ,
@@ -48,7 +48,7 @@ final class TableViewAdapter<Factory: TableViewCellFactoryType where Factory.Ite
 }
 
 // MARK: - DataManagerDelegate
-extension TableViewAdapter : DataSourceDelegate {
+extension TableViewAdapter: DataSourceDelegate {
     
     func dataSourceDidChangeContent() {
         //
@@ -65,7 +65,7 @@ extension TableViewAdapter : DataSourceDelegate {
 
 // Bridged
 
-@objc private final class BridgableTableViewAdapter : NSObject, NSTableViewDataSource, NSTableViewDelegate {
+@objc private final class BridgableTableViewAdapter: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
     private let cellForItemAtColumnRowHandler: (NSTableView, NSTableColumn?, Int) -> NSView?
     private let numberOfRowsHandler: (NSTableView) -> Int

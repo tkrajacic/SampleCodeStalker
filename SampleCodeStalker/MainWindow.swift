@@ -31,11 +31,11 @@ class MainWindow: NSWindow {
         self.backgroundColor = NSColor.whiteColor()
     }
     
-    override var canBecomeKeyWindow : Bool {
+    override var canBecomeKeyWindow: Bool {
         return true
     }
     
-    override var canBecomeMainWindow : Bool {
+    override var canBecomeMainWindow: Bool {
         return true
     }
 }

@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-public class CDDocument : ManagedObject {
+public class CDDocument: ManagedObject {
     
-    public enum UpdateSize : Int16 {
+    public enum UpdateSize: Int16 {
         case FirstVersion = 0, ContentUpdate = 1, MinorChange = 2, Unknown = 3
     }
     
@@ -23,7 +23,7 @@ public class CDDocument : ManagedObject {
     @NSManaged public private(set) var sortOrder: Int16
     @NSManaged public private(set) var releaseVersion: Int16
     
-    public private(set) var updateSize : UpdateSize {
+    public private(set) var updateSize: UpdateSize {
         get { return UpdateSize(rawValue: updateSizeRaw) ?? .Unknown }
         set { updateSizeRaw = newValue.rawValue }
     }
@@ -40,7 +40,7 @@ public class CDDocument : ManagedObject {
 }
 
 // MARK: - ManagedObjectType
-extension CDDocument : ManagedObjectType {
+extension CDDocument: ManagedObjectType {
     
     public static var entityName: String {
         return "CDDocument"

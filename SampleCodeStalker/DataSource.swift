@@ -21,7 +21,7 @@ protocol DataSourceType {
 }
 
 
-final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: ManagedObject, Delegate.Item: ManagedObjectType, Delegate.Item: StringFilterable> : DataSourceType {
+final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: ManagedObject, Delegate.Item: ManagedObjectType, Delegate.Item: StringFilterable>: DataSourceType {
     
     private var contextSavedToken: NSObjectProtocol!
     var moc = createMainContext()!
@@ -72,9 +72,9 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
 
 
 protocol StringFilterable {
-    var filterString : String { get }
+    var filterString: String { get }
 }
 
-extension CDDocument : StringFilterable {
-    var filterString : String { return name }
+extension CDDocument: StringFilterable {
+    var filterString: String { return name }
 }

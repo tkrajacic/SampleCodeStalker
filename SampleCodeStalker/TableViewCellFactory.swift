@@ -10,12 +10,12 @@ import Cocoa
 
 
 protocol TableViewCellFactoryType {
-    associatedtype Item : ReuseIdentifierCreatable
-    associatedtype Cell : NSView
+    associatedtype Item: ReuseIdentifierCreatable
+    associatedtype Cell: NSView
     func cellForItem(item: Item, forColumn column: NSTableColumn, inTableView tableView: NSTableView) -> Cell
 }
 
-class TableViewCellFactory<Cell: NSTableCellView, Item: ReuseIdentifierCreatable where Item: ManagedObject> : TableViewCellFactoryType {
+class TableViewCellFactory<Cell: NSTableCellView, Item: ReuseIdentifierCreatable where Item: ManagedObject>: TableViewCellFactoryType {
     private let cellConfigurator: (Cell, Item) -> ()
     
     /// You must register Cell.Type with your collection view for `reuseIdentifier`.
@@ -32,5 +32,5 @@ class TableViewCellFactory<Cell: NSTableCellView, Item: ReuseIdentifierCreatable
 }
 
 protocol ReuseIdentifierCreatable {
-    var cellReuseIdentifier : String { get }
+    var cellReuseIdentifier: String { get }
 }
