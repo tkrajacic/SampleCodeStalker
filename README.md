@@ -1,5 +1,7 @@
 SampleCodeStalker is a small application that fetches information about Apple's sample code from the web and presents it nicely. It started as a small weekend project and is written completely in Swift.
 
+![](https://cloud.githubusercontent.com/assets/873717/15938659/688cca56-2e74-11e6-8160-e7b3100a2ca9.png)
+
 I had (and possibly still have) many ideas about which features to add but work caught up with me and I have hardly the time to implement most of them.
 
 Sadly it is not coded all too well because I didn't have time to refactor and generalize most of the implementation but it works for now and I thought it might be helpful for some with WWDC around the corner.
