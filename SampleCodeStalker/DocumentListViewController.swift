@@ -78,12 +78,14 @@ class DocumentListViewController: NSViewController {
     }
     
     private func setActivityTitle(text: String?) {
-        if let text = text where text != "" {
-            activityLabel.stringValue = text
-            activityLabel.hidden = false
-        } else {
-            activityLabel.stringValue = ""
-            activityLabel.hidden = true
+        mainThread { 
+            if let text = text where text != "" {
+                self.activityLabel.stringValue = text
+                self.activityLabel.hidden = false
+            } else {
+                self.activityLabel.stringValue = ""
+                self.activityLabel.hidden = true
+            }
         }
     }
 }

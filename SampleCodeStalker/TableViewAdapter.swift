@@ -52,7 +52,9 @@ extension TableViewAdapter : DataSourceDelegate {
     
     func dataSourceDidChangeContent() {
         //
-        tableView.reloadData()
+        mainThread { 
+            self.tableView.reloadData()
+        }
     }
     
     func dataSourceWillChangeContent() {

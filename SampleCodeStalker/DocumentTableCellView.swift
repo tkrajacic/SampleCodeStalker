@@ -50,7 +50,10 @@ class DocumentTableCellView: NSTableCellView {
     var document : CDDocument? {
         didSet {
             guard let document = document else { return }
-            configureWithDocument(document)
+            mainThread { 
+                self.configureWithDocument(document)
+            }
+            
         }
     }
     
