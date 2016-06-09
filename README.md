@@ -2,6 +2,8 @@ SampleCodeStalker is a small application that fetches information about Apple's 
 
 I had (and possibly still have) many ideas about which features to add but work caught up with me and I have hardly the time to implement most of them.
 
+Sadly it is not coded all too well because I didn't have time to refactor and generalize most of the implementation but it works for now and I thought it might be helpful for some with WWDC around the corner.
+
 This project uses some code from the most excellent [Core Data book by Florian Kugler and Daniel Eggert](https://www.objc.io/books/core-data/). If you are working with Core Data anywhere, get it!
 
 ## Features
@@ -11,6 +13,8 @@ This project uses some code from the most excellent [Core Data book by Florian K
 
 #### Features I would have loved to implement but don't have the time to do right now
 
+- [ ] Have a nice icon...
+- [ ] Separate display of projects for each platform with a segmented control
 - [ ] Display details for each project and make them searchable
 - [ ] Download Sample code to local directory and init a git repo for each
 - [ ] Upon downloading a newer version, if the repo now has changes commit them
@@ -22,4 +26,4 @@ This project uses some code from the most excellent [Core Data book by Florian K
 
 ## Contributing
 
-Pull requests and suggestions for new features are very welcome.
+Pull requests and suggestions for new features are welcome.
