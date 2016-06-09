@@ -19,7 +19,7 @@ struct DocumentFetcher {
     
     func fetch(completionHandler: (json: [String:AnyObject])->Void) {
         
-        let request = NSMutableURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
+        let request = NSMutableURLRequest(URL: url, cachePolicy: .ReloadRevalidatingCacheData, timeoutInterval: 10)
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: configuration)
         
