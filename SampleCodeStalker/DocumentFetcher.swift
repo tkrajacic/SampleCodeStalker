@@ -27,7 +27,10 @@ struct DocumentFetcher {
             guard let data = data, response = response as? NSHTTPURLResponse
                 where error == nil && response.statusCode == 200 else { return }
             
-            if let jsonData = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments),
+            let jsonString = NSString(data: data, encoding: NSUTF8StringEncoding)!.stringByReplacingOccurrencesOfString(",\n           }", withString: "}")
+            let newData = jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
+            
+            if let jsonData = try? NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments),
                 let jsonDict = jsonData as? [String:AnyObject] {
                 
                 completionHandler(json: jsonDict)

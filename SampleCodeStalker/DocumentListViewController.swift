@@ -44,35 +44,13 @@ class DocumentListViewController: NSViewController {
         
         activityIndicator.startAnimation(self)
         
-        self.setActivityTitle("Fetching iOS Documents")
-        DocumentFetcher(endpoint: .Index(.iOS)).fetch { json in
-            self.setActivityTitle("Parsing iOS Documents")
-            DocumentParser(managedObjectContext: self.dataSource.moc, platform: .iOS).parse(json) {
+        self.setActivityTitle("Fetching Documents")
+        DocumentFetcher(endpoint: .Index).fetch { json in
+            self.setActivityTitle("Parsing Documents")
+            DocumentParser(managedObjectContext: self.dataSource.moc).parse(json) {
                 
-                self.setActivityTitle("Fetching Mac Documents")
-                DocumentFetcher(endpoint: .Index(.Mac)).fetch { json in
-                    self.setActivityTitle("Parsing Mac Documents")
-                    DocumentParser(managedObjectContext: self.dataSource.moc, platform: .Mac).parse(json) {
-                        
-                        self.setActivityTitle("Fetching watchOS Documents")
-                        DocumentFetcher(endpoint: .Index(.watchOS)).fetch { json in
-                            self.setActivityTitle("Parsing watchOS Documents")
-                            DocumentParser(managedObjectContext: self.dataSource.moc, platform: .watchOS).parse(json) {
-                                
-                                self.setActivityTitle("Fetching tvOS Documents")
-                                DocumentFetcher(endpoint: .Index(.tvOS)).fetch { json in
-                                    self.setActivityTitle("Parsing tvOS Documents")
-                                    DocumentParser(managedObjectContext: self.dataSource.moc, platform: .tvOS).parse(json) {
-                                        self.setActivityTitle("")
-                                        self.activityIndicator.stopAnimation(self)
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }
-                }
-                
+                self.setActivityTitle("")
+                self.activityIndicator.stopAnimation(self)
             }
         }
     }

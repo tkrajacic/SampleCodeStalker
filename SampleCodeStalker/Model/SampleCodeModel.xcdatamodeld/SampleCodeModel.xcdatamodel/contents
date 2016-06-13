@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10118.6" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
     <entity name="CDDocument" representedClassName=".CDDocument" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="displayDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="platform" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="releaseVersion" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sortOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="updateSizeRaw" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -39,7 +40,7 @@
         <relationship name="topicOfDocuments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDDocument" inverseName="topic" inverseEntity="CDDocument" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDDocument" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="CDDocument" positionX="-63" positionY="-18" width="128" height="240"/>
         <element name="CDFramework" positionX="-54" positionY="-9" width="128" height="135"/>
         <element name="CDResourceType" positionX="-18" positionY="27" width="128" height="120"/>
         <element name="CDTopic" positionX="-36" positionY="9" width="128" height="150"/>

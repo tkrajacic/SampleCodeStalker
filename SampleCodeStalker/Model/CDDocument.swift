@@ -22,6 +22,7 @@ public class CDDocument: ManagedObject {
     @NSManaged public private(set) var displayDate: NSDate
     @NSManaged public private(set) var sortOrder: Int16
     @NSManaged public private(set) var releaseVersion: Int16
+    @NSManaged public private(set) var platform: String
     
     public private(set) var updateSize: UpdateSize {
         get { return UpdateSize(rawValue: updateSizeRaw) ?? .Unknown }
@@ -71,7 +72,8 @@ extension CDDocument {
         releaseVersion: Int16,
         topic: CDTopic?,
         subTopic: CDTopic?,
-        framework: CDFramework?
+        framework: CDFramework?,
+        platform: String
         ) -> CDDocument {
         
         let document = CDDocument.findOrCreateInContext(moc, matchingPredicate: NSPredicate(format: "id == '\(identifier)'")) {_ in}

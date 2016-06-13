@@ -11,7 +11,6 @@ import Cocoa
 struct DocumentParser {
     
     let moc: NSManagedObjectContext
-    let platform: AppleDocumentsAPI.Platform
     let dateFormatter: NSDateFormatter = {
         let df = NSDateFormatter()
         df.timeZone = NSTimeZone(name: "PST")
@@ -19,9 +18,8 @@ struct DocumentParser {
         return df
     }()
     
-    init(managedObjectContext: NSManagedObjectContext, platform: AppleDocumentsAPI.Platform) {
+    init(managedObjectContext: NSManagedObjectContext) {
         self.moc = managedObjectContext
-        self.platform = platform
     }
     
     func parse(json: [String:AnyObject], completionHandler: (() -> Void)? = nil) {
@@ -137,12 +135,13 @@ struct DocumentParser {
                     urlString   = document[9] as? String,
                     sortOrder   = document[10] as? Int,
                     displayDateString = document[11] as? String,
-                    displayDate = self.dateFormatter.dateFromString(displayDateString)
+                    displayDate = self.dateFormatter.dateFromString(displayDateString),
+                    platform    = document[11] as? String
                     where type == Int(sampleCodeType)
                     else { return }
                 
                 let cleanedURLString = urlString.hasPrefix("../") ? urlString.substringFromIndex(urlString.startIndex.advancedBy(3)): urlString
-                let url = NSURL(string: AppleDocumentsAPI.rootURLString + self.platform.rawValue + "/" + cleanedURLString)!
+                let url = NSURL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/" + cleanedURLString)!
                 
                 CDDocument.updateOrInsertIntoContext(self.moc,
                     identifier: idString,
@@ -156,7 +155,8 @@ struct DocumentParser {
                     releaseVersion: Int16(release),
                     topic: CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(topic)")),
                     subTopic: CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(subtopic)")),
-                    framework: CDFramework.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(framework)"))
+                    framework: CDFramework.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(framework)")),
+                    platform: platform
                 )
             }
         }
@@ -174,7 +174,7 @@ private extension Dictionary where Key: StringLiteralConvertible, Value: AnyObje
     }
     
     var frameworks: [[String:AnyObject]]? {
-        return self.sections?.filter({ ($0["name"] as? String) == "Frameworks" }).first?["contents"] as? [[String:AnyObject]]
+        return self.sections?.filter({ ($0["name"] as? String) == "Technologies" }).first?["contents"] as? [[String:AnyObject]]
     }
     
     var topics: [[String:AnyObject]]? {
