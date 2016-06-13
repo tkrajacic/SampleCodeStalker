@@ -6,6 +6,8 @@ I had (and possibly still have) many ideas about which features to add but work 
 
 Sadly it is not coded all too well because I didn't have time to refactor and generalize most of the implementation but it works for now and I thought it might be helpful for some with WWDC around the corner.
 
+**Note:** If the app crashes on start it is because I have not written any migration code for Core Data yet. Just delete the `~/Documents/SampleCodeStalker/` directory and run the app again for now.
+
 This project uses some code from the most excellent [Core Data book by Florian Kugler and Daniel Eggert](https://www.objc.io/books/core-data/). If you are working with Core Data anywhere, get it!
 
 ## Features
