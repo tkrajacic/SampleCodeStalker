@@ -40,7 +40,7 @@ struct DocumentParser {
         parseTopics(topics)
         parseDocuments(documents, columns: columns)
         
-        mainThread { completionHandler?() }
+        DispatchQueue.main.async { completionHandler?() }
 
     }
     

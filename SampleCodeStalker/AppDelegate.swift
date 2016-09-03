@@ -23,22 +23,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 }
-
-func mainThread(_ block: @escaping ()->Void) {
-    DispatchQueue.main.async(execute: block)
-}
-
-//extension NSDate: Comparable {}
-//public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-//    if lhs.compare(rhs) == .OrderedSame {
-//        return true
-//    }
-//    return false
-//}
-//
-//public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-//    if lhs.compare(rhs) == .OrderedAscending {
-//        return true
-//    }
-//    return false
-//}

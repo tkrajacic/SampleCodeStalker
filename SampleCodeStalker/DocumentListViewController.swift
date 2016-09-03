@@ -56,10 +56,7 @@ class DocumentListViewController: NSViewController {
     }
     
     fileprivate func setActivityTitle(_ text: String?) {
-//        DispatchQueue.main.async {
-//            
-//        }
-        mainThread { 
+        DispatchQueue.main.async {
             if let text = text , text != "" {
                 self.activityLabel.stringValue = text
                 self.activityLabel.isHidden = false
