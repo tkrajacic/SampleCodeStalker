@@ -52,7 +52,7 @@ extension TableViewAdapter: DataSourceDelegate {
     
     func dataSourceDidChangeContent() {
         //
-        DispatchQueue.main.async { 
+        DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
