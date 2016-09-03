@@ -9,21 +9,21 @@
 import CoreData
 
 
-public func migrateStoreFromURL<Version: ModelVersionType>(sourceURL: NSURL, toURL: NSURL, targetVersion: Version, deleteSource: Bool = false, progress: NSProgress? = nil) {
+public func migrateStoreFromURL<Version: ModelVersionType>(_ sourceURL: URL, toURL: URL, targetVersion: Version, deleteSource: Bool = false, progress: Progress? = nil) {
     guard let sourceVersion = Version(storeURL: sourceURL) else { fatalError("unknown store version at URL \(sourceURL)") }
     var currentURL = sourceURL
     let migrationSteps = sourceVersion.migrationStepsToVersion(targetVersion)
-    var migrationProgress: NSProgress?
+    var migrationProgress: Progress?
     if let p = progress {
-        migrationProgress = NSProgress(totalUnitCount: Int64(migrationSteps.count), parent: p, pendingUnitCount: p.totalUnitCount)
+        migrationProgress = Progress(totalUnitCount: Int64(migrationSteps.count), parent: p, pendingUnitCount: p.totalUnitCount)
     }
     for step in migrationSteps {
-        migrationProgress?.becomeCurrentWithPendingUnitCount(1)
+        migrationProgress?.becomeCurrent(withPendingUnitCount: 1)
         let manager = NSMigrationManager(sourceModel: step.sourceModel, destinationModel: step.destinationModel)
         migrationProgress?.resignCurrent()
-        let destinationURL = NSURL.temporaryURL()
+        let destinationURL = URL.temporaryURL()
         for mapping in step.mappingModels {
-            try! manager.migrateStoreFromURL(currentURL, type: NSSQLiteStoreType, options: nil, withMappingModel: mapping, toDestinationURL: destinationURL, destinationType: NSSQLiteStoreType, destinationOptions: nil)
+            try! manager.migrateStore(from: currentURL, sourceType: NSSQLiteStoreType, options: nil, with: mapping, toDestinationURL: destinationURL, destinationType: NSSQLiteStoreType, destinationOptions: nil)
         }
         if currentURL != sourceURL {
             NSPersistentStoreCoordinator.destroyStoreAtURL(currentURL)

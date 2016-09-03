@@ -11,9 +11,9 @@ import Cocoa
 struct DocumentParser {
     
     let moc: NSManagedObjectContext
-    let dateFormatter: NSDateFormatter = {
-        let df = NSDateFormatter()
-        df.timeZone = NSTimeZone(name: "PST")
+    let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.timeZone = TimeZone(identifier: "PST")
         df.dateFormat = "yyyy-MM-dd"
         return df
     }()
@@ -22,15 +22,15 @@ struct DocumentParser {
         self.moc = managedObjectContext
     }
     
-    func parse(json: [String:AnyObject], completionHandler: (() -> Void)? = nil) {
+    func parse(_ json: [String:AnyObject], completionHandler: (() -> Void)? = nil) {
         
         // This should have: topics (Resource Types, Topics, Frameworks), updateSize, columns, documents
         guard let
             resourceTypes = json.resourceTypes,
-            frameworks = json.frameworks,
-            topics = json.topics,
-            documents = json.documents,
-            columns = json.columns
+            let frameworks = json.frameworks,
+            let topics = json.topics,
+            let documents = json.documents,
+            let columns = json.columns
         else {
             return print("Unexpected data")
         }
@@ -44,20 +44,20 @@ struct DocumentParser {
 
     }
     
-    private func parseResourceTypes(dict: [[String:AnyObject]]) {
+    fileprivate func parseResourceTypes(_ dict: [[String:AnyObject]]) {
         moc.performChanges {
 
             dict.forEach { resourceType in
                 guard let
                     name        = resourceType["name"] as? String,
-                    idString    = resourceType["id"] as? String,
-                    key         = resourceType["key"] as? String,
-                    sortOrder   = resourceType["sortOrder"] as? String
+                    let idString    = resourceType["id"] as? String,
+                    let key         = resourceType["key"] as? String,
+                    let sortOrder   = resourceType["sortOrder"] as? String
                 else { return }
                 
                 CDResourceType.updateOrInsertIntoContext(self.moc,
                     identifier: idString,
-                    name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
+                    name: name.replacingOccurrences(of: "&amp;", with: "&"),
                     key: Int16(key) ?? -1,
                     sortOrder: Int16(sortOrder) ?? 0
                 )
@@ -67,19 +67,19 @@ struct DocumentParser {
         }
     }
     
-    private func parseFrameworks(dict: [[String:AnyObject]]) {
+    fileprivate func parseFrameworks(_ dict: [[String:AnyObject]]) {
         moc.performChanges {
             
             dict.forEach { framework in
                 guard let
                     name        = framework["name"] as? String,
-                    id          = framework["id"] as? Int,
-                    key         = framework["key"] as? String
+                    let id          = framework["id"] as? Int,
+                    let key         = framework["key"] as? String
                 else { return }
 
                 CDFramework.updateOrInsertIntoContext(self.moc,
                     identifier: Int16(id),
-                    name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
+                    name: name.replacingOccurrences(of: "&amp;", with: "&"),
                     key: Int16(key) ?? -1
                 )
             }
@@ -87,14 +87,14 @@ struct DocumentParser {
         }
     }
     
-    private func parseTopics(dict: [[String:AnyObject]]) {
+    fileprivate func parseTopics(_ dict: [[String:AnyObject]]) {
         moc.performChanges {
         
         dict.forEach { topic in
             guard let
                 name        = topic["name"] as? String,
-                id          = topic["id"] as? Int,
-                key         = topic["key"] as? String
+                let id          = topic["id"] as? Int,
+                let key         = topic["key"] as? String
             else { return }
             
             let parent = (topic["parent"] as? String).flatMap {
@@ -103,7 +103,7 @@ struct DocumentParser {
             
             CDTopic.updateOrInsertIntoContext(self.moc,
                 identifier: Int16(id),
-                name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
+                name: name.replacingOccurrences(of: "&amp;", with: "&"),
                 key: Int16(key) ?? -1,
                 parent: parent
             )
@@ -112,7 +112,7 @@ struct DocumentParser {
         }
     }
     
-    private func parseDocuments(array: [[AnyObject]], columns: [String:Int]) {
+    fileprivate func parseDocuments(_ array: [[AnyObject]], columns: [String:Int]) {
         moc.performChanges {
         // for now let's ignore the columns and hardcode the order
         
@@ -123,35 +123,35 @@ struct DocumentParser {
             array.forEach { document in
                 guard let
                     name        = document[0] as? String,
-                    idString    = document[1] as? String,
-                    type        = document[2] as? Int,
-                    dateString  = document[3] as? String,
-                    date        = self.dateFormatter.dateFromString(dateString),
-                    updateSize  = document[4] as? Int,
-                    topic       = document[5] as? Int,
-                    framework   = document[6] as? Int,
-                    release     = document[7] as? Int,
-                    subtopic    = document[8] as? Int,
-                    urlString   = document[9] as? String,
-                    sortOrder   = document[10] as? Int,
-                    displayDateString = document[11] as? String,
-                    displayDate = self.dateFormatter.dateFromString(displayDateString),
-                    platform    = document[11] as? String
-                    where type == Int(sampleCodeType)
+                    let idString    = document[1] as? String,
+                    let type        = document[2] as? Int,
+                    let dateString  = document[3] as? String,
+                    let date        = self.dateFormatter.date(from: dateString),
+                    let updateSize  = document[4] as? Int,
+                    let topic       = document[5] as? Int,
+                    let framework   = document[6] as? Int,
+                    let release     = document[7] as? Int,
+                    let subtopic    = document[8] as? Int,
+                    let urlString   = document[9] as? String,
+                    let sortOrder   = document[10] as? Int,
+                    let displayDateString = document[11] as? String,
+                    let displayDate = self.dateFormatter.date(from: displayDateString),
+                    let platform    = document[11] as? String
+                    , type == Int(sampleCodeType)
                     else { return }
                 
-                let cleanedURLString = urlString.hasPrefix("../") ? urlString.substringFromIndex(urlString.startIndex.advancedBy(3)): urlString
-                let url = NSURL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/" + cleanedURLString)!
+                let cleanedURLString = urlString.hasPrefix("../") ? urlString.substring(from: urlString.characters.index(urlString.startIndex, offsetBy: 3)): urlString
+                let url = URL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/" + cleanedURLString)!
                 
                 CDDocument.updateOrInsertIntoContext(self.moc,
                     identifier: idString,
-                    name: name.stringByReplacingOccurrencesOfString("&amp;", withString: "&"),
+                    name: name.replacingOccurrences(of: "&amp;", with: "&"),
                     type: CDResourceType.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(type)")),
                     url: url,
                     date: date,
                     displayDate: displayDate,
-                    sortOrder: Int16(sortOrder) ?? 0,
-                    updateSize: CDDocument.UpdateSize(rawValue: Int16(updateSize) ?? 0) ?? .unknown,
+                    sortOrder: Int16(sortOrder),
+                    updateSize: CDDocument.UpdateSize(rawValue: Int16(updateSize) ) ?? .unknown,
                     releaseVersion: Int16(release),
                     topic: CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(topic)")),
                     subTopic: CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(subtopic)")),
@@ -163,7 +163,7 @@ struct DocumentParser {
     }
 }
 
-private extension Dictionary where Key: StringLiteralConvertible, Value: AnyObject {
+private extension Dictionary where Key: ExpressibleByStringLiteral, Value: AnyObject {
     
     var sections: [[String:AnyObject]]? {
         return self["topics"] as? [[String:AnyObject]]

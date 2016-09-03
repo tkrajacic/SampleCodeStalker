@@ -9,15 +9,15 @@
 import Foundation
 import CoreData
 
-public class CDResourceType: ManagedObject {
+class CDResourceType: ManagedObject {
     
-    @NSManaged public private(set) var id: String
-    @NSManaged public private(set) var name: String
-    @NSManaged public private(set) var key: Int16
-    @NSManaged public private(set) var sortOrder: Int16
+    @NSManaged open fileprivate(set) var id: String
+    @NSManaged open fileprivate(set) var name: String
+    @NSManaged open fileprivate(set) var key: Int16
+    @NSManaged open fileprivate(set) var sortOrder: Int16
     
     // Relationships
-    @NSManaged public private(set) var documents: Set<CDDocument>
+    @NSManaged open fileprivate(set) var documents: Set<CDDocument>
 }
 
 // MARK: - ManagedObjectType
@@ -39,8 +39,8 @@ extension CDResourceType: ManagedObjectType {
 
 // MARK: - Creation
 extension CDResourceType {
-    public static func updateOrInsertIntoContext(
-        moc: NSManagedObjectContext,
+    @discardableResult public static func updateOrInsertIntoContext(
+        _ moc: NSManagedObjectContext,
         identifier: String,
         name: String,
         key: Int16,

@@ -10,11 +10,11 @@ import Cocoa
 
 class DocumentListViewController: NSViewController {
     
-    private typealias DocumentsCellFactory = TableViewCellFactory<DocumentTableCellView, CDDocument>
+    fileprivate typealias DocumentsCellFactory = TableViewCellFactory<DocumentTableCellView, CDDocument>
     
-    private let dataSource = DataSource<TableViewAdapter<DocumentsCellFactory>>()
-    private var tableViewAdapter: TableViewAdapter<DocumentsCellFactory>!
-    private var cellFactory: DocumentsCellFactory!
+    fileprivate let dataSource = DataSource<TableViewAdapter<DocumentsCellFactory>>()
+    fileprivate var tableViewAdapter: TableViewAdapter<DocumentsCellFactory>!
+    fileprivate var cellFactory: DocumentsCellFactory!
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var documentCountTextField: NSTextField!
@@ -55,14 +55,17 @@ class DocumentListViewController: NSViewController {
         }
     }
     
-    private func setActivityTitle(text: String?) {
+    fileprivate func setActivityTitle(_ text: String?) {
+//        DispatchQueue.main.async {
+//            
+//        }
         mainThread { 
-            if let text = text where text != "" {
+            if let text = text , text != "" {
                 self.activityLabel.stringValue = text
-                self.activityLabel.hidden = false
+                self.activityLabel.isHidden = false
             } else {
                 self.activityLabel.stringValue = ""
-                self.activityLabel.hidden = true
+                self.activityLabel.isHidden = true
             }
         }
     }
@@ -71,24 +74,24 @@ class DocumentListViewController: NSViewController {
 // MARK: - NSTableViewDelegate
 extension DocumentListViewController: NSTableViewDelegate {
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        guard let tableColumn = tableColumn where row < dataSource.items.count else { return nil }
-        return tableViewAdapter.bridgedDelegate.tableView?(tableView, viewForTableColumn: tableColumn, row: row)
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        guard let tableColumn = tableColumn , row < dataSource.items.count else { return nil }
+        return tableViewAdapter.bridgedDelegate.tableView?(tableView, viewFor: tableColumn, row: row)
     }
 }
 
 // MARK: - NSSearchFieldDelegate
 extension DocumentListViewController: NSSearchFieldDelegate {
     
-    override func controlTextDidChange(obj: NSNotification) {
+    override func controlTextDidChange(_ obj: Notification) {
         guard let textField = obj.object as? NSTextField else { return }
-        dataSource.filterWithString(textField.stringValue.lowercaseString)
+        dataSource.filterWithString(textField.stringValue.lowercased())
     }
 }
 
 private extension NSTextField {
     
-    func updateWithCount(count: Int, unfilteredCount: Int) {
+    func updateWithCount(_ count: Int, unfilteredCount: Int) {
         guard unfilteredCount >= count else { return }
         self.stringValue = count == unfilteredCount ? "\(count) documents": "\(count) of \(unfilteredCount) documents"
     }

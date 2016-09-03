@@ -18,10 +18,10 @@ enum AppleDocumentsAPI {
     case index
     case sampleCode(document: CDDocument)
     
-    var url: NSURL {
+    var url: URL {
         switch self {
-        case .index: return NSURL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/navigation/library.json")!
-        case .sampleCode(let document): return document.url
+        case .index: return URL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/navigation/library.json")!
+        case .sampleCode(let document): return document.url as URL
         }
     }
 }

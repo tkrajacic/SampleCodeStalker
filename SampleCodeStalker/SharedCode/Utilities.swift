@@ -9,82 +9,82 @@
 import Foundation
 
 
-extension SequenceType {
-
-    func findFirstOccurence(@noescape block: Generator.Element -> Bool) -> Generator.Element? {
+extension Sequence {
+    
+    func findFirstOccurence( _ block: (Iterator.Element) -> Bool) -> Iterator.Element? {
         for x in self where block(x) {
             return x
         }
         return nil
     }
-
-    func some(@noescape block: Generator.Element -> Bool) -> Bool {
+    
+    func some( _ block: (Iterator.Element) -> Bool) -> Bool {
         return findFirstOccurence(block) != nil
     }
-
-    func all(@noescape block: Generator.Element -> Bool) -> Bool {
+    
+    func all( _ block: (Iterator.Element) -> Bool) -> Bool {
         return findFirstOccurence { !block($0) } == nil
     }
-
+    
     /// Similar to
     /// ```
     /// func forEach(@noescape body: (Self.Generator.Element) -> ())
     /// ```
     /// but calls the completion block once all blocks have called their completion block. If some of the calls to the block do not call their completion blocks that will result in data leaking.
-    func asyncForEachWithCompletion(completion: () -> (), @noescape block: (Generator.Element, () -> ()) -> ()) {
-        let group = dispatch_group_create()
-        let innerCompletion = { dispatch_group_leave(group) }
+    func asyncForEachWithCompletion(_ completion: @escaping () -> (), block: (Iterator.Element, () -> ()) -> ()) {
+        let group = DispatchGroup()
+        let innerCompletion = { group.leave() }
         for x in self {
-            dispatch_group_enter(group)
+            group.enter()
             block(x, innerCompletion)
         }
-        dispatch_group_notify(group, dispatch_get_main_queue(), completion)
+        group.notify(queue: DispatchQueue.main, execute: completion)
     }
-
+    
     func filterByType<T>() -> [T] {
         return filter { $0 is T }.map { $0 as! T }
     }
-
+    
 }
 
 
-extension SequenceType where Generator.Element: AnyObject {
-
-    public func containsObjectIdenticalTo(object: AnyObject) -> Bool {
+extension Sequence where Iterator.Element: AnyObject {
+    
+    public func containsObjectIdenticalTo(_ object: AnyObject) -> Bool {
         return contains { $0 === object }
     }
-
+    
 }
 
 
 extension Array {
-
-    func decompose() -> (Generator.Element, [Generator.Element])? {
+    
+    func decompose() -> (Iterator.Element, [Iterator.Element])? {
         guard let x = first else { return nil }
         return (x, Array(self[1..<count]))
     }
-
-    func slices(size: Int) -> [[Generator.Element]] {
-        var result: [[Generator.Element]] = []
-        for idx in startIndex.stride(to: endIndex, by: size) {
-            let end = min(idx + size, endIndex)
+    
+    func slices(_ size: Int) -> [[Iterator.Element]] {
+        var result: [[Iterator.Element]] = []
+        for idx in stride(from: startIndex, to: endIndex, by: size) {
+            let end = Swift.min(idx + size, endIndex)
             result.append(Array(self[idx..<end]))
         }
         return result
     }
-
+    
 }
 
 
-extension NSURL {
-
-    static func temporaryURL() -> NSURL {
-        return try! NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true).URLByAppendingPathComponent(NSUUID().UUIDString)!
+extension URL {
+    
+    static func temporaryURL() -> URL {
+        return try! FileManager.default.url(for: FileManager.SearchPathDirectory.cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(UUID().uuidString)
     }
-
-    static var documentsURL: NSURL {
-        return try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+    
+    static var documentsURL: URL {
+        return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     }
-
+    
 }
 

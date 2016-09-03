@@ -11,9 +11,9 @@ import Foundation
 struct Document {
     let id: String
     let name: String
-    let url: NSURL
-    let date: NSDate
-    let displayDate: NSDate
+    let url: URL
+    let date: Date
+    let displayDate: Date
     let sortOrder: Int16
     let releaseVersion: Int16
 }
@@ -22,9 +22,9 @@ extension Document {
     init(coreDataDocument: CDDocument) {
         self.id = coreDataDocument.id
         self.name = coreDataDocument.name
-        self.url = coreDataDocument.url
-        self.date = coreDataDocument.date
-        self.displayDate = coreDataDocument.displayDate
+        self.url = coreDataDocument.url as URL
+        self.date = coreDataDocument.date as Date
+        self.displayDate = coreDataDocument.displayDate as Date
         self.sortOrder = coreDataDocument.sortOrder
         self.releaseVersion = coreDataDocument.releaseVersion
     }

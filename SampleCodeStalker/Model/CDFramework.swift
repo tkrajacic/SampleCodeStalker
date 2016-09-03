@@ -9,16 +9,16 @@
 import Foundation
 import CoreData
 
-public class CDFramework: ManagedObject {
+class CDFramework: ManagedObject {
     
-    @NSManaged public private(set) var id: Int16
-    @NSManaged public private(set) var name: String
-    @NSManaged public private(set) var key: Int16
+    @NSManaged open fileprivate(set) var id: Int16
+    @NSManaged open fileprivate(set) var name: String
+    @NSManaged open fileprivate(set) var key: Int16
     
     // Relationships
-    @NSManaged public private(set) var parent: CDFramework?
-    @NSManaged public private(set) var children: Set<CDFramework>
-    @NSManaged public private(set) var documents: Set<CDDocument>
+    @NSManaged open fileprivate(set) var parent: CDFramework?
+    @NSManaged open fileprivate(set) var children: Set<CDFramework>
+    @NSManaged open fileprivate(set) var documents: Set<CDDocument>
 }
 
 // MARK: - ManagedObjectType
@@ -40,8 +40,8 @@ extension CDFramework: ManagedObjectType {
 
 // MARK: - Creation
 extension CDFramework {
-    public static func updateOrInsertIntoContext(
-        moc: NSManagedObjectContext,
+    @discardableResult public static func updateOrInsertIntoContext(
+        _ moc: NSManagedObjectContext,
         identifier: Int16,
         name: String,
         key: Int16,

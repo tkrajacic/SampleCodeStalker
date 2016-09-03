@@ -13,32 +13,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
 
 }
 
-func mainThread(block: ()->Void) {
-    dispatch_async(dispatch_get_main_queue(), block)
+func mainThread(_ block: @escaping ()->Void) {
+    DispatchQueue.main.async(execute: block)
 }
 
-extension NSDate: Comparable {}
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    if lhs.compare(rhs) == .OrderedSame {
-        return true
-    }
-    return false
-}
-
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    if lhs.compare(rhs) == .OrderedAscending {
-        return true
-    }
-    return false
-}
+//extension NSDate: Comparable {}
+//public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+//    if lhs.compare(rhs) == .OrderedSame {
+//        return true
+//    }
+//    return false
+//}
+//
+//public func <(lhs: NSDate, rhs: NSDate) -> Bool {
+//    if lhs.compare(rhs) == .OrderedAscending {
+//        return true
+//    }
+//    return false
+//}

@@ -11,50 +11,50 @@ import CoreData
 
 extension NSManagedObjectContext {
 
-    private var store: NSPersistentStore {
+    fileprivate var store: NSPersistentStore {
         guard let psc = persistentStoreCoordinator else { fatalError("PSC missing") }
         guard let store = psc.persistentStores.first else { fatalError("No Store") }
         return store
     }
 
-    public var metaData: [String: AnyObject] {
+    public var metaData: [String: Any] {
         get {
             guard let psc = persistentStoreCoordinator else { fatalError("must have PSC") }
-            return psc.metadataForPersistentStore(store)
+            return psc.metadata(for: store)
         }
         set {
             performChanges {
                 guard let psc = self.persistentStoreCoordinator else { fatalError("PSC missing") }
-                psc.setMetadata(newValue, forPersistentStore: self.store)
+                psc.setMetadata(newValue, for: self.store)
             }
         }
     }
 
-    public func setMetaData(object: AnyObject?, forKey key: String) {
+    public func setMetaData(_ object: AnyObject?, forKey key: String) {
         var md = metaData
         md[key] = object
         metaData = md
     }
 
-    public func insertObject<A: ManagedObject where A: ManagedObjectType>() -> A {
-        guard let obj = NSEntityDescription.insertNewObjectForEntityForName(A.entityName, inManagedObjectContext: self) as? A else { fatalError("Wrong object type") }
+    public func insertObject<A: ManagedObject>() -> A where A: ManagedObjectType {
+        guard let obj = NSEntityDescription.insertNewObject(forEntityName: A.entityName, into: self) as? A else { fatalError("Wrong object type") }
         return obj
     }
 
-    public func entityForName(name: String) -> NSEntityDescription {
+    public func entityForName(_ name: String) -> NSEntityDescription {
         guard let psc = persistentStoreCoordinator else { fatalError("PSC missing") }
         guard let entity = psc.managedObjectModel.entitiesByName[name] else { fatalError("Entity \(name) not found") }
         return entity
     }
 
     public func createBackgroundContext() -> NSManagedObjectContext {
-        let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentStoreCoordinator
         return context
     }
 
 
-    public func saveOrRollback() -> Bool {
+    @discardableResult public func saveOrRollback() -> Bool {
         do {
             try save()
             return true
@@ -65,20 +65,20 @@ extension NSManagedObjectContext {
     }
 
     public func performSaveOrRollback() {
-        performBlock {
+        perform {
             self.saveOrRollback()
         }
     }
 
-    public func performChanges(block: () -> ()) {
-        performBlock {
+    public func performChanges(_ block: @escaping () -> ()) {
+        perform {
             block()
             self.saveOrRollback()
         }
     }
 
-    func materializedObjectPassingTest(test: NSManagedObject -> Bool) -> NSManagedObject? {
-        for object in registeredObjects where !object.fault && test(object) {
+    func materializedObjectPassingTest(_ test: (NSManagedObject) -> Bool) -> NSManagedObject? {
+        for object in registeredObjects where !object.isFault && test(object) {
             return object
         }
         return nil
@@ -91,13 +91,13 @@ private let SingleObjectCacheKey = "SingleObjectCache"
 private typealias SingleObjectCache = [String:NSManagedObject]
 
 extension NSManagedObjectContext {
-    public func setObject(object: NSManagedObject?, forSingleObjectCacheKey key: String) {
+    public func setObject(_ object: NSManagedObject?, forSingleObjectCacheKey key: String) {
         var cache = userInfo[SingleObjectCacheKey] as? SingleObjectCache ?? [:]
         cache[key] = object
         userInfo[SingleObjectCacheKey] = cache
     }
 
-    public func objectForSingleObjectCacheKey(key: String) -> NSManagedObject? {
+    public func objectForSingleObjectCacheKey(_ key: String) -> NSManagedObject? {
         guard let cache = userInfo[SingleObjectCacheKey] as? [String:NSManagedObject] else { return nil }
         return cache[key]
     }

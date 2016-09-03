@@ -10,13 +10,13 @@ import Cocoa
 
 class DocumentTableCellView: NSTableCellView {
     
-    static let TopicColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.5).CGColor
-    static let FrameworkColor = NSColor(calibratedHue: 0.5, saturation: 0.8, brightness: 0.8, alpha: 0.5).CGColor
+    static let TopicColor = NSColor(calibratedHue: 0.4, saturation: 0.6, brightness: 0.8, alpha: 0.5).cgColor
+    static let FrameworkColor = NSColor(calibratedHue: 0.5, saturation: 0.8, brightness: 0.8, alpha: 0.5).cgColor
     
-    static let dateFormatter: NSDateFormatter = {
-        let df = NSDateFormatter()
-        df.dateStyle = .MediumStyle
-        df.timeStyle = .NoStyle
+    static let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .none
         return df
     }()
 
@@ -57,31 +57,31 @@ class DocumentTableCellView: NSTableCellView {
         }
     }
     
-    private func configureWithDocument(document: CDDocument) {
+    fileprivate func configureWithDocument(_ document: CDDocument) {
         nameTextField.stringValue = document.name
-        dateTextField.stringValue = DocumentTableCellView.dateFormatter.stringFromDate(document.date)
+        dateTextField.stringValue = DocumentTableCellView.dateFormatter.string(from: document.date as Date)
         
-        if let topicName = document.topic?.name where topicName != "" {
-            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: topicTextField)
+        if let topicName = document.topic?.name , topicName != "" {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, for: topicTextField)
             topicTextField.stringValue = topicName
         } else {
-            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: topicTextField)
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, for: topicTextField)
             topicTextField.stringValue = ""
         }
         
-        if let subTopicName = document.subTopic?.name where subTopicName != "" {
-            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: subTopicTextField)
+        if let subTopicName = document.subTopic?.name , subTopicName != "" {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, for: subTopicTextField)
             subTopicTextField.stringValue = subTopicName
         } else {
-            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: subTopicTextField)
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, for: subTopicTextField)
             subTopicTextField.stringValue = ""
         }
         
-        if let frameworkName = document.framework?.name where frameworkName != "" {
-            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, forView: frameworkTextField)
+        if let frameworkName = document.framework?.name , frameworkName != "" {
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityMustHold, for: frameworkTextField)
             frameworkTextField.stringValue = frameworkName
         } else {
-            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, forView: frameworkTextField)
+            tagStackView.setVisibilityPriority(NSStackViewVisibilityPriorityNotVisible, for: frameworkTextField)
             frameworkTextField.stringValue = ""
         }
         
@@ -90,9 +90,9 @@ class DocumentTableCellView: NSTableCellView {
         downloadButton.toolTip = document.url.absoluteString
     }
     
-    @IBAction func downloadButtonPressed(sender: DownloadButton) {
+    @IBAction func downloadButtonPressed(_ sender: DownloadButton) {
         guard let document = document else { return }
-        NSWorkspace.sharedWorkspace().openURL(document.url)
+        NSWorkspace.shared().open(document.url as URL)
     }
 }
 

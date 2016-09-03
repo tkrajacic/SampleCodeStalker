@@ -9,30 +9,30 @@
 import Foundation
 import CoreData
 
-private let StoreURL = NSURL.documentsURL
-    .URLByAppendingPathComponent("SampleCodeStalker", isDirectory: true)!
-    .URLByAppendingPathComponent("SampleCodeStalker.sqlite")
+private let StoreURL = URL.documentsURL
+    .appendingPathComponent("SampleCodeStalker", isDirectory: true)
+    .appendingPathComponent("SampleCodeStalker.sqlite")
 
 
 private func createStoreDirectoryIfNeeded() {
-    let directoryURL = NSURL.documentsURL.URLByAppendingPathComponent("SampleCodeStalker", isDirectory: true)
-    let manager = NSFileManager.defaultManager()
-    try! manager.createDirectoryAtURL(directoryURL!, withIntermediateDirectories: true, attributes: nil)
+    let directoryURL = URL.documentsURL.appendingPathComponent("SampleCodeStalker", isDirectory: true)
+    let manager = FileManager.default
+    try! manager.createDirectory(at: directoryURL, withIntermediateDirectories: true, attributes: nil)
 }
 
-public func createMainContext(progress: NSProgress? = nil,
-    migrationCompletion: NSManagedObjectContext -> () = { _ in })
+public func createMainContext(_ progress: Progress? = nil,
+    migrationCompletion: @escaping (NSManagedObjectContext) -> () = { _ in })
     -> NSManagedObjectContext?
 {
     createStoreDirectoryIfNeeded()
-    let version = CoreDataModelVersion(storeURL: StoreURL!)
+    let version = CoreDataModelVersion(storeURL: StoreURL)
     guard version == nil || version == CoreDataModelVersion.CurrentVersion else {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
             let context = NSManagedObjectContext(
-                concurrencyType: .MainQueueConcurrencyType,
-                                 modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL!,
+                concurrencyType: .mainQueueConcurrencyType,
+                                 modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL,
                                                progress: progress)
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 migrationCompletion(context)
             }
         }
@@ -40,10 +40,10 @@ public func createMainContext(progress: NSProgress? = nil,
     }
     
     let context = NSManagedObjectContext(
-        concurrencyType: .MainQueueConcurrencyType,
-                         modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL!)
+        concurrencyType: .mainQueueConcurrencyType,
+                         modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL)
     
-    context.mergePolicy = NSMergePolicy(mergeType: .MergeByPropertyStoreTrumpMergePolicyType)
+    context.mergePolicy = NSMergePolicy(merge: .mergeByPropertyStoreTrumpMergePolicyType)
     return context
 }
 
@@ -56,6 +56,6 @@ static var AllVersions: [CoreDataModelVersion] { return [.version1] }
 static var CurrentVersion: CoreDataModelVersion { return .version1 }
     
     var name: String { return rawValue }
-    var modelBundle: NSBundle { return NSBundle(forClass: CDDocument.self) }
+    var modelBundle: Bundle { return Bundle(for: CDDocument.self) }
     var modelDirectoryName: String { return "SampleCodeModel.momd" }
 }

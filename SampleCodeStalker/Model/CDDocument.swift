@@ -9,32 +9,32 @@
 import Foundation
 import CoreData
 
-public class CDDocument: ManagedObject {
+class CDDocument: ManagedObject {
     
     public enum UpdateSize: Int16 {
         case firstVersion = 0, contentUpdate = 1, minorChange = 2, unknown = 3
     }
     
-    @NSManaged public private(set) var id: String
-    @NSManaged public private(set) var name: String
-    @NSManaged public private(set) var url: NSURL
-    @NSManaged public private(set) var date: NSDate
-    @NSManaged public private(set) var displayDate: NSDate
-    @NSManaged public private(set) var sortOrder: Int16
-    @NSManaged public private(set) var releaseVersion: Int16
-    @NSManaged public private(set) var platform: String
+    @NSManaged open fileprivate(set) var id: String
+    @NSManaged open fileprivate(set) var name: String
+    @NSManaged open fileprivate(set) var url: URL
+    @NSManaged open fileprivate(set) var date: Date
+    @NSManaged open fileprivate(set) var displayDate: Date
+    @NSManaged open fileprivate(set) var sortOrder: Int16
+    @NSManaged open fileprivate(set) var releaseVersion: Int16
+    @NSManaged open fileprivate(set) var platform: String
     
-    public private(set) var updateSize: UpdateSize {
+    open fileprivate(set) var updateSize: UpdateSize {
         get { return UpdateSize(rawValue: updateSizeRaw) ?? .unknown }
         set { updateSizeRaw = newValue.rawValue }
     }
-    @NSManaged private var updateSizeRaw: Int16
+    @NSManaged fileprivate var updateSizeRaw: Int16
     
     // Relationships
-    @NSManaged public private(set) var framework: CDFramework?
-    @NSManaged public private(set) var topic: CDTopic?
-    @NSManaged public private(set) var subTopic: CDTopic?
-    @NSManaged public private(set) var type: CDResourceType?
+    @NSManaged open fileprivate(set) var framework: CDFramework?
+    @NSManaged open fileprivate(set) var topic: CDTopic?
+    @NSManaged open fileprivate(set) var subTopic: CDTopic?
+    @NSManaged open fileprivate(set) var type: CDResourceType?
     
     
     
@@ -59,14 +59,14 @@ extension CDDocument: ManagedObjectType {
 
 // MARK: - Creation
 extension CDDocument {
-    public static func updateOrInsertIntoContext(
-        moc: NSManagedObjectContext,
+    @discardableResult public static func updateOrInsertIntoContext(
+        _ moc: NSManagedObjectContext,
         identifier: String,
         name: String,
         type: CDResourceType?,
-        url: NSURL,
-        date: NSDate,
-        displayDate: NSDate,
+        url: URL,
+        date: Date,
+        displayDate: Date,
         sortOrder: Int16,
         updateSize: UpdateSize,
         releaseVersion: Int16,

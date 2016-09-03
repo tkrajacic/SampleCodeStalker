@@ -9,40 +9,40 @@
 import Foundation
 
 
-class ValueTransformer<A: AnyObject, B: AnyObject>: NSValueTransformer {
-
-    typealias Transform = A? -> B?
-    typealias ReverseTransform = B? -> A?
-
+class ValueTransformer<A: AnyObject, B: AnyObject>: Foundation.ValueTransformer {
+    
+    typealias Transform = (A?) -> B?
+    typealias ReverseTransform = (B?) -> A?
+    
     private let transform: Transform
     private let reverseTransform: ReverseTransform
-
+    
     init(transform: Transform, reverseTransform: ReverseTransform) {
         self.transform = transform
         self.reverseTransform = reverseTransform
         super.init()
     }
-
-    static func registerTransformerWithName(name: String, transform: Transform, reverseTransform: ReverseTransform) {
+    
+    static func registerTransformerWith(name: String, transform: Transform, reverseTransform: ReverseTransform) {
         let vt = ValueTransformer(transform: transform, reverseTransform: reverseTransform)
-        NSValueTransformer.setValueTransformer(vt, forName: name)
+        Foundation.ValueTransformer.setValueTransformer(vt, forName: NSValueTransformerName(rawValue: name))
     }
-
+    
     override static func transformedValueClass() -> AnyClass {
         return B.self
     }
-
+    
     override class func allowsReverseTransformation() -> Bool {
         return true
     }
-
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
+    
+    override func transformedValue(_ value: Any?) -> Any? {
         return transform(value as? A)
     }
-
-    override func reverseTransformedValue(value: AnyObject?) -> AnyObject? {
+    
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
         return reverseTransform(value as? B)
     }
-
+    
 }
 

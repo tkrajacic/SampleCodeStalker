@@ -9,7 +9,7 @@
 import Cocoa
 
 
-final class TableViewAdapter<Factory: TableViewCellFactoryType where Factory.Item: ManagedObject, Factory.Item: ManagedObjectType, Factory.Item: StringFilterable> {
+final class TableViewAdapter<Factory: TableViewCellFactoryType> where Factory.Item: ManagedObject, Factory.Item: ManagedObjectType, Factory.Item: StringFilterable {
     typealias Item = Factory.Item
     
     let tableView: NSTableView!
@@ -19,9 +19,9 @@ final class TableViewAdapter<Factory: TableViewCellFactoryType where Factory.Ite
     var bridgedDataSource: NSTableViewDataSource { return bridgedTableViewDataSource }
     var bridgedDelegate: NSTableViewDelegate { return bridgedTableViewDataSource }
     
-    private lazy var bridgedTableViewDataSource: BridgableTableViewAdapter = BridgableTableViewAdapter(
+    fileprivate lazy var bridgedTableViewDataSource: BridgableTableViewAdapter = BridgableTableViewAdapter(
         cellForItemAtColumnRowHandler: { self.viewForTableColumn($1, row: $2) } ,
-                                       numberOfRowsHandler: { self.numberOfRowsInTableView($0) ?? 0 }
+                                       numberOfRowsHandler: { self.numberOfRowsInTableView($0) }
     )
     
     init(dataManager: DataSource<TableViewAdapter<Factory>>, cellFactory: Factory, tableView: NSTableView) {
@@ -32,13 +32,13 @@ final class TableViewAdapter<Factory: TableViewCellFactoryType where Factory.Ite
     
     // MARK: - NSTableViewDataSource
     
-    private func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    fileprivate func numberOfRowsInTableView(_ tableView: NSTableView) -> Int {
         return dataSource.items.count
     }
     
     // MARK: For NSTableViewDelegate
     
-    private func viewForTableColumn(tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    fileprivate func viewForTableColumn(_ tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let tableColumn = tableColumn else {
             fatalError("No table column")
         }
@@ -67,17 +67,17 @@ extension TableViewAdapter: DataSourceDelegate {
 
 @objc private final class BridgableTableViewAdapter: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    private let cellForItemAtColumnRowHandler: (NSTableView, NSTableColumn?, Int) -> NSView?
-    private let numberOfRowsHandler: (NSTableView) -> Int
+    fileprivate let cellForItemAtColumnRowHandler: (NSTableView, NSTableColumn?, Int) -> NSView?
+    fileprivate let numberOfRowsHandler: (NSTableView) -> Int
     
-    init(cellForItemAtColumnRowHandler: (NSTableView, NSTableColumn?, Int) -> NSView?, numberOfRowsHandler: (NSTableView) -> Int) {
+    init(cellForItemAtColumnRowHandler: @escaping (NSTableView, NSTableColumn?, Int) -> NSView?, numberOfRowsHandler: @escaping (NSTableView) -> Int) {
         self.cellForItemAtColumnRowHandler = cellForItemAtColumnRowHandler
         self.numberOfRowsHandler = numberOfRowsHandler
     }
     
     // MARK: - NSTableViewDataSource
     
-    @objc func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    @objc func numberOfRows(in tableView: NSTableView) -> Int {
         return numberOfRowsHandler(tableView)
     }
     
@@ -85,7 +85,7 @@ extension TableViewAdapter: DataSourceDelegate {
     
     // Unfortunately this method is in the Delegate on Mac OS X and not in the DataSource as on iOS
     // That's why this class implements `NSTableViewDelegate` as well so it can be passed transparently for this method.
-    @objc func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    @objc func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         return cellForItemAtColumnRowHandler(tableView, tableColumn, row)
     }
     

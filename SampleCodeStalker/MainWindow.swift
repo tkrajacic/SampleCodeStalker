@@ -10,7 +10,7 @@ import Cocoa
 
 class MainWindow: NSWindow {
 
-    override init(contentRect: NSRect, styleMask aStyle: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, `defer` flag: Bool) {
+    override init(contentRect: NSRect, styleMask aStyle: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: aStyle, backing: bufferingType, defer: flag)
         
         self.commonInit()
@@ -24,18 +24,18 @@ class MainWindow: NSWindow {
     
     func commonInit() {
         self.titlebarAppearsTransparent = true
-        self.titleVisibility = .Hidden
-        self.movable = true
-        self.movableByWindowBackground = true
-        self.opaque = false
-        self.backgroundColor = NSColor.whiteColor()
+        self.titleVisibility = .hidden
+        self.isMovable = true
+        self.isMovableByWindowBackground = true
+        self.isOpaque = false
+        self.backgroundColor = NSColor.white
     }
     
-    override var canBecomeKeyWindow: Bool {
+    override var canBecomeKey: Bool {
         return true
     }
     
-    override var canBecomeMainWindow: Bool {
+    override var canBecomeMain: Bool {
         return true
     }
 }

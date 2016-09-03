@@ -21,11 +21,11 @@ protocol DataSourceType {
 }
 
 
-final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: ManagedObject, Delegate.Item: ManagedObjectType, Delegate.Item: StringFilterable>: DataSourceType {
+final class DataSource<Delegate: DataSourceDelegate>: DataSourceType where Delegate.Item: ManagedObject, Delegate.Item: ManagedObjectType, Delegate.Item: StringFilterable {
     
-    private var contextSavedToken: NSObjectProtocol!
+    fileprivate var contextSavedToken: NSObjectProtocol!
     var moc = createMainContext()!
-    var itemCountHandler: ((count: Int, unfilteredCount: Int)->Void)?
+    var itemCountHandler: ((_ count: Int, _ unfilteredCount: Int)->Void)?
     
     init() {
         contextSavedToken = moc.addContextDidSaveNotificationObserver { [weak self] note in
@@ -34,7 +34,7 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(contextSavedToken)
+        NotificationCenter.default.removeObserver(contextSavedToken)
     }
         
     // To keep the filter string when reloading the data
@@ -44,7 +44,7 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
     var items: [Delegate.Item] = [] {
         didSet {
             delegate?.dataSourceDidChangeContent()
-        itemCountHandler?(count: items.count, unfilteredCount: unfilteredItems.count)
+        itemCountHandler?(items.count, unfilteredItems.count)
         }
     }
     
@@ -58,13 +58,13 @@ final class DataSource<Delegate: DataSourceDelegate where Delegate.Item: Managed
         unfilteredItems = Delegate.Item.fetchInContext(moc) { $0.sortDescriptors = Delegate.Item.defaultSortDescriptors }
     }
     
-    func filterWithString(string: String) {
+    func filterWithString(_ string: String) {
         filterString = string
         if string == "" {
             items = unfilteredItems
         } else {
             items = unfilteredItems.filter {
-                $0.filterString.lowercaseString.containsString(filterString)
+                $0.filterString.lowercased().contains(filterString)
             }
         }
     }

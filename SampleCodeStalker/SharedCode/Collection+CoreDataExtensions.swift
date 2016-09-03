@@ -8,16 +8,16 @@
 
 import CoreData
 
-extension CollectionType where Generator.Element: NSManagedObject {
+extension Collection where Iterator.Element: NSManagedObject {
     public func fetchObjectsThatAreFaults() {
         guard !self.isEmpty else { return }
         guard let context = self.first?.managedObjectContext else { fatalError("Managed object must have context") }
-        let faults = self.filter { $0.fault }
+        let faults = self.filter { $0.isFault }
         guard let mo = faults.first else { return }
-        let request = NSFetchRequest()
+        let request = NSFetchRequest<Iterator.Element>()
         request.entity = mo.entity
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate(format: "self in %@", faults)
-        try! context.executeFetchRequest(request)
+        _ = try! context.fetch(request)
     }
 }

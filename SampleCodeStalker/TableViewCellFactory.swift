@@ -12,19 +12,19 @@ import Cocoa
 protocol TableViewCellFactoryType {
     associatedtype Item: ReuseIdentifierCreatable
     associatedtype Cell: NSView
-    func cellForItem(item: Item, forColumn column: NSTableColumn, inTableView tableView: NSTableView) -> Cell
+    func cellForItem(_ item: Item, forColumn column: NSTableColumn, inTableView tableView: NSTableView) -> Cell
 }
 
-class TableViewCellFactory<Cell: NSTableCellView, Item: ReuseIdentifierCreatable where Item: ManagedObject>: TableViewCellFactoryType {
-    private let cellConfigurator: (Cell, Item) -> ()
+class TableViewCellFactory<Cell: NSTableCellView, Item: ReuseIdentifierCreatable>: TableViewCellFactoryType where Item: ManagedObject {
+    fileprivate let cellConfigurator: (Cell, Item) -> ()
     
     /// You must register Cell.Type with your collection view for `reuseIdentifier`.
-    init(cellConfigurator: (Cell, Item) -> ()) {
+    init(cellConfigurator: @escaping (Cell, Item) -> ()) {
         self.cellConfigurator = cellConfigurator
     }
     
-    func cellForItem(item: Item, forColumn column: NSTableColumn, inTableView tableView: NSTableView) -> Cell {
-        let cell = tableView.makeViewWithIdentifier(item.cellReuseIdentifier, owner: self) as! Cell
+    func cellForItem(_ item: Item, forColumn column: NSTableColumn, inTableView tableView: NSTableView) -> Cell {
+        let cell = tableView.make(withIdentifier: item.cellReuseIdentifier, owner: self) as! Cell
         cellConfigurator(cell, item)
         return cell
     }
