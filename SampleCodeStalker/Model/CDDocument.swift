@@ -12,7 +12,7 @@ import CoreData
 public class CDDocument: ManagedObject {
     
     public enum UpdateSize: Int16 {
-        case FirstVersion = 0, ContentUpdate = 1, MinorChange = 2, Unknown = 3
+        case firstVersion = 0, contentUpdate = 1, minorChange = 2, unknown = 3
     }
     
     @NSManaged public private(set) var id: String
@@ -25,7 +25,7 @@ public class CDDocument: ManagedObject {
     @NSManaged public private(set) var platform: String
     
     public private(set) var updateSize: UpdateSize {
-        get { return UpdateSize(rawValue: updateSizeRaw) ?? .Unknown }
+        get { return UpdateSize(rawValue: updateSizeRaw) ?? .unknown }
         set { updateSizeRaw = newValue.rawValue }
     }
     @NSManaged private var updateSizeRaw: Int16

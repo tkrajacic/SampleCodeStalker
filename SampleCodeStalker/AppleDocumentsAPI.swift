@@ -12,16 +12,16 @@ enum AppleDocumentsAPI {
     static let rootURLString: String = "https://developer.apple.com/library/"
     
     enum Platform: String {
-        case Mac = "mac", iOS = "ios", tvOS = "tvos", watchOS = "watchos"
+        case mac = "mac", iOS = "ios", tvOS = "tvos", watchOS = "watchos"
     }
     
-    case Index
-    case SampleCode(document: CDDocument)
+    case index
+    case sampleCode(document: CDDocument)
     
     var url: NSURL {
         switch self {
-        case .Index: return NSURL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/navigation/library.json")!
-        case .SampleCode(let document): return document.url
+        case .index: return NSURL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/navigation/library.json")!
+        case .sampleCode(let document): return document.url
         }
     }
 }

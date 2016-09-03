@@ -151,7 +151,7 @@ struct DocumentParser {
                     date: date,
                     displayDate: displayDate,
                     sortOrder: Int16(sortOrder) ?? 0,
-                    updateSize: CDDocument.UpdateSize(rawValue: Int16(updateSize) ?? 0) ?? .Unknown,
+                    updateSize: CDDocument.UpdateSize(rawValue: Int16(updateSize) ?? 0) ?? .unknown,
                     releaseVersion: Int16(release),
                     topic: CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(topic)")),
                     subTopic: CDTopic.findOrFetchInContext(self.moc, matchingPredicate: NSPredicate(format: "key == \(subtopic)")),

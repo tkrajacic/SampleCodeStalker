@@ -45,7 +45,7 @@ class DocumentListViewController: NSViewController {
         activityIndicator.startAnimation(self)
         
         self.setActivityTitle("Fetching Documents")
-        DocumentFetcher(endpoint: .Index).fetch { json in
+        DocumentFetcher(endpoint: .index).fetch { json in
             self.setActivityTitle("Parsing Documents")
             DocumentParser(managedObjectContext: self.dataSource.moc).parse(json) {
                 

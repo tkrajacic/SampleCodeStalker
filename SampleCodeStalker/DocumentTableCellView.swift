@@ -99,10 +99,10 @@ class DocumentTableCellView: NSTableCellView {
 private extension CDDocument.UpdateSize {
     var stringRepresentation: String {
         switch self {
-        case .FirstVersion: return "First Version"
-        case .ContentUpdate: return "Content Update"
-        case .MinorChange: return "Minor Change"
-        case .Unknown: return "unknown"
+        case .firstVersion: return "First Version"
+        case .contentUpdate: return "Content Update"
+        case .minorChange: return "Minor Change"
+        case .unknown: return "unknown"
         }
     }
 }

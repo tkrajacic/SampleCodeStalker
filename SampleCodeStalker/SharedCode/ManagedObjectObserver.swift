@@ -12,8 +12,8 @@ import CoreData
 
 public final class ManagedObjectObserver {
     public enum ChangeType {
-        case Delete
-        case Update
+        case delete
+        case update
     }
 
     public init?(object: ManagedObjectType, changeHandler: ChangeType -> ()) {
@@ -21,7 +21,7 @@ public final class ManagedObjectObserver {
         objectHasBeenDeleted = !object.dynamicType.defaultPredicate.evaluateWithObject(object)
         token = moc.addObjectsDidChangeNotificationObserver { [unowned self] note in
             guard let changeType = self.changeTypeOfObject(object, inNotification: note) else { return }
-            self.objectHasBeenDeleted = changeType == .Delete
+            self.objectHasBeenDeleted = changeType == .delete
             changeHandler(changeType)
         }
     }
@@ -39,15 +39,15 @@ public final class ManagedObjectObserver {
     private func changeTypeOfObject(object: ManagedObjectType, inNotification note: ObjectsDidChangeNotification) -> ChangeType? {
         let deleted = note.deletedObjects.union(note.invalidatedObjects)
         if note.invalidatedAllObjects || deleted.containsObjectIdenticalTo(object) {
-            return .Delete
+            return .delete
         }
         let updated = note.updatedObjects.union(note.refreshedObjects)
         if updated.containsObjectIdenticalTo(object) {
             let predicate = object.dynamicType.defaultPredicate
             if predicate.evaluateWithObject(object) {
-                return .Update
+                return .update
             } else if !objectHasBeenDeleted {
-                return .Delete
+                return .delete
             }
         }
         return nil

@@ -48,12 +48,12 @@ public func createMainContext(progress: NSProgress? = nil,
 }
 
 enum CoreDataModelVersion: String {
-    case Version1 = "SampleCodeModel"
+    case version1 = "SampleCodeModel"
 }
 
 extension CoreDataModelVersion: ModelVersionType {
-static var AllVersions: [CoreDataModelVersion] { return [.Version1] }
-static var CurrentVersion: CoreDataModelVersion { return .Version1 }
+static var AllVersions: [CoreDataModelVersion] { return [.version1] }
+static var CurrentVersion: CoreDataModelVersion { return .version1 }
     
     var name: String { return rawValue }
     var modelBundle: NSBundle { return NSBundle(forClass: CDDocument.self) }
