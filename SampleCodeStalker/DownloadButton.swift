@@ -195,9 +195,9 @@ extension NSBezierPath {
         for index in 0..<self.elementCount {
             let pathType = self.element(at: index, associatedPoints: points)
             switch pathType {
-                case .moveToBezierPathElement: path.move(to: points[0]) //CGPathMoveToPoint(path, nil, points[0].x, points[0].y)
-                case .lineToBezierPathElement: path.addLine(to: points[0]) //CGPathAddLineToPoint(path, nil, points[0].x, points[0].y)
-                case .curveToBezierPathElement: path.addCurve(to: points[0], control1: points[1], control2: points[2]) //CGPathAddCurveToPoint(path, nil, points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y)
+                case .moveToBezierPathElement: path.move(to: points[0])
+                case .lineToBezierPathElement: path.addLine(to: points[0])
+                case .curveToBezierPathElement: path.addCurve(to: points[2], control1: points[0], control2: points[1])
                 case .closePathBezierPathElement: path.closeSubpath()
             }
         }
