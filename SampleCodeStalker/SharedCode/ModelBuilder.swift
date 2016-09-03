@@ -18,7 +18,7 @@ extension NSManagedObjectContext {
         let storeURL = NSURL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).URLByAppendingPathComponent(databaseName)
         let psc = NSPersistentStoreCoordinator(managedObjectModel: model)
         if deleteExistingStore {
-            psc.destroySQLiteStoreAtURL(storeURL)
+            psc.destroySQLiteStoreAtURL(storeURL!)
         }
         try! psc.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: [:])
         persistentStoreCoordinator = psc

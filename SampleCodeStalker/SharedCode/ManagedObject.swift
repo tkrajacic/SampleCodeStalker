@@ -99,9 +99,8 @@ extension ManagedObjectType where Self: ManagedObject {
     public static func countInContext(context: NSManagedObjectContext, @noescape configurationBlock: NSFetchRequest -> () = { _ in }) -> Int {
         let request = NSFetchRequest(entityName: entityName)
         configurationBlock(request)
-        var error: NSError?
-        let result = context.countForFetchRequest(request, error: &error)
-        guard result != NSNotFound else { fatalError("Failed to execute fetch request: \(error)") }
+        let result = try! context.countForFetchRequest(request)
+        guard result != NSNotFound else { fatalError("Failed to execute fetch request") }
         return result
     }
 

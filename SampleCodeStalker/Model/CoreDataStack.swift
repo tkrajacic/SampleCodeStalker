@@ -10,14 +10,14 @@ import Foundation
 import CoreData
 
 private let StoreURL = NSURL.documentsURL
-    .URLByAppendingPathComponent("SampleCodeStalker", isDirectory: true)
+    .URLByAppendingPathComponent("SampleCodeStalker", isDirectory: true)!
     .URLByAppendingPathComponent("SampleCodeStalker.sqlite")
 
 
 private func createStoreDirectoryIfNeeded() {
     let directoryURL = NSURL.documentsURL.URLByAppendingPathComponent("SampleCodeStalker", isDirectory: true)
     let manager = NSFileManager.defaultManager()
-    try! manager.createDirectoryAtURL(directoryURL, withIntermediateDirectories: true, attributes: nil)
+    try! manager.createDirectoryAtURL(directoryURL!, withIntermediateDirectories: true, attributes: nil)
 }
 
 public func createMainContext(progress: NSProgress? = nil,
@@ -25,12 +25,12 @@ public func createMainContext(progress: NSProgress? = nil,
     -> NSManagedObjectContext?
 {
     createStoreDirectoryIfNeeded()
-    let version = CoreDataModelVersion(storeURL: StoreURL)
+    let version = CoreDataModelVersion(storeURL: StoreURL!)
     guard version == nil || version == CoreDataModelVersion.CurrentVersion else {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             let context = NSManagedObjectContext(
                 concurrencyType: .MainQueueConcurrencyType,
-                                 modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL,
+                                 modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL!,
                                                progress: progress)
             dispatch_async(dispatch_get_main_queue()) {
                 migrationCompletion(context)
@@ -41,7 +41,7 @@ public func createMainContext(progress: NSProgress? = nil,
     
     let context = NSManagedObjectContext(
         concurrencyType: .MainQueueConcurrencyType,
-                         modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL)
+                         modelVersion: CoreDataModelVersion.CurrentVersion, storeURL: StoreURL!)
     
     context.mergePolicy = NSMergePolicy(mergeType: .MergeByPropertyStoreTrumpMergePolicyType)
     return context

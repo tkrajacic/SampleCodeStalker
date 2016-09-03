@@ -33,8 +33,8 @@ class DocumentListViewController: NSViewController {
         
         tableViewAdapter = TableViewAdapter(dataManager: dataSource, cellFactory: cellFactory, tableView: tableView)
         
-        tableView.setDataSource(tableViewAdapter.bridgedDataSource)
-        tableView.setDelegate(self)
+        tableView.dataSource = tableViewAdapter.bridgedDataSource
+        tableView.delegate = self
         
         dataSource.delegate = tableViewAdapter
         dataSource.itemCountHandler = { count, unfilteredCount in

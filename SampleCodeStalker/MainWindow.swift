@@ -10,17 +10,17 @@ import Cocoa
 
 class MainWindow: NSWindow {
 
-    override init(contentRect: NSRect, styleMask aStyle: Int, backing bufferingType: NSBackingStoreType, `defer` flag: Bool) {
+    override init(contentRect: NSRect, styleMask aStyle: NSWindowStyleMask, backing bufferingType: NSBackingStoreType, `defer` flag: Bool) {
         super.init(contentRect: contentRect, styleMask: aStyle, backing: bufferingType, defer: flag)
         
         self.commonInit()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        self.commonInit()
-    }
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        
+//        self.commonInit()
+//    }
     
     func commonInit() {
         self.titlebarAppearsTransparent = true
