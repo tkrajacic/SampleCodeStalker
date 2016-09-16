@@ -42,6 +42,6 @@ struct DocumentFetcher {
 
 extension DocumentFetcher {
     init(endpoint: AppleDocumentsAPI) {
-        self.url = endpoint.url as URL
+        self.url = endpoint.url
     }
 }

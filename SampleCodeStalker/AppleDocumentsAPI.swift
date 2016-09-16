@@ -20,7 +20,7 @@ enum AppleDocumentsAPI {
     
     var url: URL {
         switch self {
-        case .index: return URL(string: AppleDocumentsAPI.rootURLString + "prerelease/content/navigation/library.json")!
+        case .index: return URL(string: AppleDocumentsAPI.rootURLString + "content/navigation/library.json")!
         case .sampleCode(let document): return document.url as URL
         }
     }
